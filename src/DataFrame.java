@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
@@ -11,8 +12,8 @@ public interface DataFrame {
 	
 	public int size();
 	
-	public void sort(Comparator<Object> c);
+	public void sort(Comparator<ArrayList<Object>> c);
 	
-	public Object query(Predicate<Object> predicate);
+	public Object query(Predicate<ArrayList<Object>> predicate);
 
 }

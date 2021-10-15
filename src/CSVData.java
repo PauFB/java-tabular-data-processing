@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class CSVData implements DataFrame {
 
@@ -67,14 +68,14 @@ public class CSVData implements DataFrame {
 	}
 
 	@Override
-	public void sort(Comparator<Object> c) {
-		return;
+	public void sort(Comparator<ArrayList<Object>> c) {
+		Collections.sort(content, c);
 	}
 
 	@Override
-	public Object query(Predicate<Object> predicate) {
+	public List<ArrayList<Object>> query(Predicate<ArrayList<Object>> predicate) {
 		// int labelIndex = labelList.indexOf(label);
-		return content.stream().filter(predicate);
+		return content.stream().filter(predicate).collect(Collectors.toList());
 		
 	}
 
