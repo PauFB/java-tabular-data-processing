@@ -1,12 +1,13 @@
 import java.io.*;
 import java.util.*;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class CSVData implements DataFrame {
 
-	LinkedList<Object> labelList = new LinkedList<>();
-	LinkedList<ArrayList<Object>> content = new LinkedList<ArrayList<Object>>();
+	LinkedList<String> labelList = new LinkedList<>();
+	LinkedList<ArrayList<String>> content = new LinkedList<ArrayList<String>>();
 
 	public CSVData(String fileName) {
 
@@ -19,18 +20,20 @@ public class CSVData implements DataFrame {
 
 			// Llegir la capçalera
 			while (st.hasMoreTokens()) {
-				this.labelList.add(st.nextElement()); // i posar l'element
+				content.add(new ArrayList<String>());		//Per cada nova entrada crear una nova columna
+				this.labelList.add(st.nextToken()); 		// i afegir a LabelList
 			}
 
 			// Llegir el contingut
 			row = fileReader.readLine();
 			while (row != null) {
-				this.content.add(new ArrayList<Object>()); // Per cada nova entrada crear una nova columna
-				st = new StringTokenizer(row, ",");
+				int i = 0;
+				st = new StringTokenizer(row,",");
 
 				while (st.hasMoreTokens()) {
-					this.content.getLast().add(st.nextElement()); // Per cada nova entrada posar l'element
-				}
+					content.get(i).add(st.nextToken());		//Per cada nova entrada posar l'element
+					i++;
+				}				
 				row = fileReader.readLine();
 			}
 
@@ -44,17 +47,15 @@ public class CSVData implements DataFrame {
 	}
 
 	@Override
-	public Object at(String id, String label) {
-
+	public String at(int id, String label) {
 		int labelIndex = labelList.indexOf(label);
-		int index = content.get(0).indexOf(id);
 
-		return content.get(labelIndex).get(index);
+		return content.get(labelIndex).get(id);
 	}
 
 	@Override
-	public Object iat(int i, int j) {
-		return this.content.get(i).get(j);
+	public String iat(int i, int j) {
+		return this.content.get(j).get(i);
 	}
 
 	@Override
@@ -64,18 +65,25 @@ public class CSVData implements DataFrame {
 
 	@Override
 	public int size() {
-		return this.content.size();
+		return this.content.get(0).size();
 	}
 
 	@Override
-	public void sort(Comparator<ArrayList<Object>> c) {
-		Collections.sort(content, c);
+	public ArrayList<String> sort(String label, Comparator<Object> c) {
+		int labelIndex = labelList.indexOf(label);
+		
+		ArrayList<String> temp = content.get(labelIndex);
+		Collections.sort(temp, c);
+		
+		return temp;
 	}
 
+	// parametre sera un metode duna interface,
+	// el qual es pot substituir per una lambda
 	@Override
-	public List<ArrayList<Object>> query(Predicate<ArrayList<Object>> predicate) {
+	public <T> List<ArrayList<String>> query(Predicate<ArrayList<String>> func) {
 		// int labelIndex = labelList.indexOf(label);
-		return content.stream().filter(predicate).collect(Collectors.toList());
+		return content.stream().filter(func).collect(Collectors.toList());
 		
 	}
 
