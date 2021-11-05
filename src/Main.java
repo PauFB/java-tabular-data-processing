@@ -9,6 +9,9 @@ public class Main {
 
 		DataFrameFactory factory = new CSVDataFactory();
 		DataFrame dataFrame = factory.readFile("DimenLookupAge8277.csv");
+		
+		DataFrameFactory factory2 = new JSONDataFactory();
+		DataFrame dataFrame2 = factory2.readFile("cities.json");
 
 		System.out.println(dataFrame.at(0, "Code"));
 		System.out.println(dataFrame.size());
