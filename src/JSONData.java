@@ -18,17 +18,17 @@ public class JSONData implements DataFrame {
             
             JSONObject jsonObject = (JSONObject) array.get(0);
             for (int i = 0; i < jsonObject.keySet().size(); i++) {
-            	labelList.set(i, (String)jsonObject.keySet().toArray()[i]);
+            	//labelList.set(i, (String)jsonObject.keySet().toArray()[i]);
+				labelList.add((String)jsonObject.keySet().toArray()[i]);
             }
             
             
             for (int i = 0; i < array.size(); i++) {
             	 jsonObject = (JSONObject) array.get(i);
-            	
             }
-            jsonObject = (JSONObject) array.get(0);
+            //jsonObject = (JSONObject) array.get(0);
 
-            String name = (String) jsonObject.get("name");
+            /*String name = (String) jsonObject.get("name");
             System.out.println(name);
 
             String city = (String) jsonObject.get("city");
@@ -42,7 +42,7 @@ public class JSONData implements DataFrame {
             Iterator<String> iterator = cars.iterator();
             while (iterator.hasNext()) {
                 System.out.println(iterator.next());
-            }
+            }*/
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
