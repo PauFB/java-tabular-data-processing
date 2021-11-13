@@ -81,10 +81,25 @@ public class CSVData implements DataFrame {
 	// parametre sera un metode duna interface,
 	// el qual es pot substituir per una lambda
 	@Override
-	public <T> List<ArrayList<String>> query(Predicate<ArrayList<String>> func) {
-		// int labelIndex = labelList.indexOf(label);
-		return content.stream().filter(func).collect(Collectors.toList());
-		
+	public <T> List<ArrayList<String>> query(String label, Predicate<String> func) {
+		int col = labelList.indexOf(label);
+
+		List<String> col_fitrada = content.get(col).stream().filter(func).collect(Collectors.toList());
+
+		LinkedList<ArrayList<String>> aux = new LinkedList<ArrayList<String>>();
+		for (int k = 0; k < this.columns(); k++){
+			aux.add(new ArrayList<String>());
+		}
+
+		for (int j = 0; j < this.size(); j++){
+			if (col_fitrada.contains(content.get(col).get(j))){
+				for (int i = 0; i < this.columns(); i++){
+					aux.get(i).add(content.get(i).get(j));
+				}
+			}
+		}
+
+		return aux;
 	}
 
 }

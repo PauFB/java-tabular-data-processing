@@ -16,6 +16,6 @@ public interface DataFrame {
 	
 	public ArrayList<String> sort(String label, Comparator<Object> c);
 	
-	public <T> List<ArrayList<String>> query(Predicate<ArrayList<String>> predicate);
+	public <T> List<ArrayList<String>> query(String label, Predicate<String> predicate);
 
 }
