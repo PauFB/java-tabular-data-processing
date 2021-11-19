@@ -1,6 +1,8 @@
 import java.io.*;
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -20,29 +22,17 @@ public class JSONData implements DataFrame {
             for (int i = 0; i < jsonObject.keySet().size(); i++) {
             	//labelList.set(i, (String)jsonObject.keySet().toArray()[i]);
 				labelList.add((String)jsonObject.keySet().toArray()[i]);
+				content.add(new ArrayList<String>());
             }
             
             
             for (int i = 0; i < array.size(); i++) {
             	 jsonObject = (JSONObject) array.get(i);
+
+            	 for (int j = 0; j < jsonObject.size(); j++){
+            	 	content.get(j).add(jsonObject.get(labelList.get(j)).toString());
+				 }
             }
-            //jsonObject = (JSONObject) array.get(0);
-
-            /*String name = (String) jsonObject.get("name");
-            System.out.println(name);
-
-            String city = (String) jsonObject.get("city");
-            System.out.println(city);
-
-            String job = (String) jsonObject.get("job");
-            System.out.println(job);
-
-            // loop array
-            JSONArray cars = (JSONArray) jsonObject.get("cars");
-            Iterator<String> iterator = cars.iterator();
-            while (iterator.hasNext()) {
-                System.out.println(iterator.next());
-            }*/
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -55,38 +45,58 @@ public class JSONData implements DataFrame {
 
 	@Override
 	public String at(int id, String label) {
-		// TODO Auto-generated method stub
-		return null;
+		int labelIndex = labelList.indexOf(label);
+
+		return content.get(labelIndex).get(id);
 	}
 
 	@Override
 	public String iat(int i, int j) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.content.get(j).get(i);
 	}
 
 	@Override
 	public int columns() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.labelList.size();
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.content.get(0).size();
 	}
 
 	@Override
 	public ArrayList<String> sort(String label, Comparator<Object> c) {
-		// TODO Auto-generated method stub
-		return null;
+		int labelIndex = labelList.indexOf(label);
+
+		ArrayList<String> temp = content.get(labelIndex);
+		Collections.sort(temp, c);
+
+		return temp;
 	}
 
+	// parametre sera un metode duna interface,
+	// el qual es pot substituir per una lambda
 	@Override
-	public <T> List<ArrayList<String>> query(String label, Predicate<String> predicate) {
-		// TODO Auto-generated method stub
-		return null;
+	public <T> List<ArrayList<String>> query(String label, Predicate<String> func) {
+		int col = labelList.indexOf(label);
+
+		List<String> col_filtrada = content.get(col).stream().filter(func).collect(Collectors.toList());
+
+		LinkedList<ArrayList<String>> aux = new LinkedList<ArrayList<String>>();
+		for (int k = 0; k < this.columns(); k++){
+			aux.add(new ArrayList<String>());
+		}
+
+		for (int j = 0; j < this.size(); j++){
+			if (col_filtrada.contains(content.get(col).get(j))){
+				for (int i = 0; i < this.columns(); i++){
+					aux.get(i).add(content.get(i).get(j));
+				}
+			}
+		}
+
+		return aux;
 	}
 
 }
