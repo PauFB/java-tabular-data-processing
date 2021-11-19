@@ -84,7 +84,7 @@ public class CSVData implements DataFrame {
 	public <T> List<ArrayList<String>> query(String label, Predicate<String> func) {
 		int col = labelList.indexOf(label);
 
-		List<String> col_fitrada = content.get(col).stream().filter(func).collect(Collectors.toList());
+		List<String> col_filtrada = content.get(col).stream().filter(func).collect(Collectors.toList());
 
 		LinkedList<ArrayList<String>> aux = new LinkedList<ArrayList<String>>();
 		for (int k = 0; k < this.columns(); k++){
@@ -92,7 +92,7 @@ public class CSVData implements DataFrame {
 		}
 
 		for (int j = 0; j < this.size(); j++){
-			if (col_fitrada.contains(content.get(col).get(j))){
+			if (col_filtrada.contains(content.get(col).get(j))){
 				for (int i = 0; i < this.columns(); i++){
 					aux.get(i).add(content.get(i).get(j));
 				}
