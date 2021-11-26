@@ -1,6 +1,6 @@
 
 public interface DataFrameFactory {
 		
-	public abstract DataFrame readFile(String fileName);
+	DataFrame readFile(String fileName);
 
 }

@@ -1,13 +1,12 @@
 import java.io.*;
 import java.util.*;
-import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class CSVData implements DataFrame {
 
 	LinkedList<String> labelList = new LinkedList<>();
-	LinkedList<ArrayList<String>> content = new LinkedList<ArrayList<String>>();
+	LinkedList<ArrayList<String>> content = new LinkedList<>();
 
 	public CSVData(String fileName) {
 
@@ -20,7 +19,7 @@ public class CSVData implements DataFrame {
 
 			// Llegir la capçalera
 			while (st.hasMoreTokens()) {
-				content.add(new ArrayList<String>());		//Per cada nova entrada crear una nova columna
+				content.add(new ArrayList<>());		//Per cada nova entrada crear una nova columna
 				this.labelList.add(st.nextToken()); 		// i afegir a LabelList
 			}
 
@@ -42,7 +41,7 @@ public class CSVData implements DataFrame {
 		} catch (FileNotFoundException e) {
 			System.out.println("El fitxer d'entrada no existeix");
 		} catch (IOException e) {
-			System.out.println("Excepcio d'E/S: " + e.toString());
+			System.out.println("Excepcio d'E/S: " + e);
 		}
 	}
 
@@ -73,7 +72,7 @@ public class CSVData implements DataFrame {
 		int labelIndex = labelList.indexOf(label);
 		
 		ArrayList<String> temp = content.get(labelIndex);
-		Collections.sort(temp, c);
+		temp.sort(c);
 		
 		return temp;
 	}
@@ -81,14 +80,14 @@ public class CSVData implements DataFrame {
 	// parametre sera un metode duna interface,
 	// el qual es pot substituir per una lambda
 	@Override
-	public <T> List<ArrayList<String>> query(String label, Predicate<String> func) {
+	public List<ArrayList<String>> query(String label, Predicate<String> func) {
 		int col = labelList.indexOf(label);
 
 		List<String> col_filtrada = content.get(col).stream().filter(func).collect(Collectors.toList());
 
-		LinkedList<ArrayList<String>> aux = new LinkedList<ArrayList<String>>();
+		LinkedList<ArrayList<String>> aux = new LinkedList<>();
 		for (int k = 0; k < this.columns(); k++){
-			aux.add(new ArrayList<String>());
+			aux.add(new ArrayList<>());
 		}
 
 		for (int j = 0; j < this.size(); j++){

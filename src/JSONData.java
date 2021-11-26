@@ -3,38 +3,48 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import org.json.simple.*;
+import org.json.simple.parser.ContainerFactory;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class JSONData implements DataFrame {
 	
 	LinkedList<String> labelList = new LinkedList<>();
-	LinkedList<ArrayList<String>> content = new LinkedList<ArrayList<String>>();
-	
+	LinkedList<ArrayList<String>> content = new LinkedList<>();
+
 	public JSONData(String file) {
 		JSONParser parser = new JSONParser();
 
         try {
-        	JSONArray array = (JSONArray) parser.parse(new FileReader(file));
-            
-            JSONObject jsonObject = (JSONObject) array.get(0);
+
+			ContainerFactory orderedKeyFactory = new ContainerFactory() {
+				public List<String> creatArrayContainer() {
+					return new LinkedList<>();
+				}
+
+				public Map<String, String> createObjectContainer() {
+					return new LinkedHashMap<>();
+				}
+			};
+
+        	LinkedList<HashMap<String, String>> array = (LinkedList<HashMap<String, String>>)parser.parse(new FileReader(file), orderedKeyFactory);
+
+			HashMap<String, String> jsonObject = array.get(0);
             for (int i = 0; i < jsonObject.keySet().size(); i++) {
             	//labelList.set(i, (String)jsonObject.keySet().toArray()[i]);
 				labelList.add((String)jsonObject.keySet().toArray()[i]);
-				content.add(new ArrayList<String>());
+				content.add(new ArrayList<>());
             }
-            
-            
-            for (int i = 0; i < array.size(); i++) {
-            	 jsonObject = (JSONObject) array.get(i);
 
-            	 for (int j = 0; j < jsonObject.size(); j++){
-            	 	content.get(j).add(jsonObject.get(labelList.get(j)).toString());
+			//for (int i = 0; i < array.size(); i++) {
+			//obj: array.get(i)
+            for (HashMap<String, String> obj : array) {
+            	 jsonObject = obj;
+            	 for (int j = 0; j < jsonObject.size(); j++) {
+            	 	//content.get(j).add(jsonObject.get(labelList.get(j)).toString());
+					 content.get(j).add(String.valueOf(jsonObject.get(labelList.get(j))));
 				 }
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
@@ -70,7 +80,7 @@ public class JSONData implements DataFrame {
 		int labelIndex = labelList.indexOf(label);
 
 		ArrayList<String> temp = content.get(labelIndex);
-		Collections.sort(temp, c);
+		temp.sort(c);
 
 		return temp;
 	}
@@ -78,14 +88,14 @@ public class JSONData implements DataFrame {
 	// parametre sera un metode duna interface,
 	// el qual es pot substituir per una lambda
 	@Override
-	public <T> List<ArrayList<String>> query(String label, Predicate<String> func) {
+	public List<ArrayList<String>> query(String label, Predicate<String> func) {
 		int col = labelList.indexOf(label);
 
 		List<String> col_filtrada = content.get(col).stream().filter(func).collect(Collectors.toList());
 
-		LinkedList<ArrayList<String>> aux = new LinkedList<ArrayList<String>>();
+		LinkedList<ArrayList<String>> aux = new LinkedList<>();
 		for (int k = 0; k < this.columns(); k++){
-			aux.add(new ArrayList<String>());
+			aux.add(new ArrayList<>());
 		}
 
 		for (int j = 0; j < this.size(); j++){

@@ -32,14 +32,14 @@ public class Main {
 		System.out.println("Iat (0, 0): " + dataFrame2.iat(0, 0));
 
 		List<ArrayList<String>> d3 = dataFrame2.query("LatD", x -> Integer.parseInt(x) < 30);
-		System.out.println("LatD > 40: " + d3);
+		System.out.println("LatD < 30: " + d3);
 
 		dataFrame2.sort("LatD", new IntAscending());
 		System.out.println("Primera columna despres de sort LatD");
-		System.out.println(dataFrame2.iat(0, 1));
-		System.out.println(dataFrame2.iat(1, 1));
-		System.out.println(dataFrame2.iat(2, 1));
-		System.out.println(dataFrame2.iat(3, 1));
+		System.out.println(dataFrame2.iat(0, 0));
+		System.out.println(dataFrame2.iat(1, 0));
+		System.out.println(dataFrame2.iat(2, 0));
+		System.out.println(dataFrame2.iat(3, 0));
 
 	}
 
