@@ -1,3 +1,5 @@
+package factory;
+
 import java.util.Comparator;
 
 public class IntAscending implements Comparator<Object> {
