@@ -41,6 +41,22 @@ public class Main {
 		System.out.println(dataFrame2.iat(2, 0));
 		System.out.println(dataFrame2.iat(3, 0));
 
+		DataFrameFactory factory3 = new TXTDataFactory();
+		DataFrame dataFrame3 = factory3.readFile("example.txt");
+
+		System.out.println("At (0, Code): " + dataFrame3.at(0, "Code"));
+		System.out.println("Size: " + dataFrame3.size());
+		System.out.println("Iat (0, 0): " + dataFrame3.iat(0, 0));
+
+		List<ArrayList<String>> d4 = dataFrame3.query("Code", x -> Integer.parseInt(x) > 113);
+		System.out.println("Code > 113: " + d4);
+
+		dataFrame3.sort("Code", new IntAscending());
+		System.out.println("Primera columna despres de sort Code");
+		System.out.println(dataFrame3.iat(0, 0));
+		System.out.println(dataFrame3.iat(1, 0));
+		System.out.println(dataFrame3.iat(2, 0));
+
 	}
 
 }
