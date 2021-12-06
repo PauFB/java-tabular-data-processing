@@ -109,4 +109,8 @@ public class JSONData implements DataFrame {
 		return aux;
 	}
 
+	@Override
+	public Iterator<ArrayList<String>> iterator() {
+		return content.iterator();
+	}
 }

@@ -79,8 +79,6 @@ public class CSVData implements DataFrame {
 		return temp;
 	}
 
-	// parametre sera un metode duna interface,
-	// el qual es pot substituir per una lambda
 	@Override
 	public List<ArrayList<String>> query(String label, Predicate<String> func) {
 		int col = labelList.indexOf(label);
@@ -103,6 +101,8 @@ public class CSVData implements DataFrame {
 		return aux;
 	}
 
-
-
+	@Override
+	public Iterator<ArrayList<String>> iterator() {
+		return content.iterator();
+	}
 }

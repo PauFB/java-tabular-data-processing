@@ -3,7 +3,7 @@ package factory;
 import java.util.*;
 import java.util.function.Predicate;
 
-public interface DataFrame {
+public interface DataFrame extends Iterable<ArrayList<String>>{
 	
 	String at(int id, String label);
 	

@@ -46,9 +46,6 @@ public class Main {
 		System.out.println("Primera columna despres de sort Code ascendent: " + TXTsort);
 		List<ArrayList<String>> TXTquery = dataFrame3.query("Code", x -> Integer.parseInt(x) > 113);
 		System.out.println("Code > 113: " + TXTquery + "\n");
-
-
-
 	}
 
 }
