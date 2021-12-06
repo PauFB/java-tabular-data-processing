@@ -1,14 +1,14 @@
 package composite;
 
 import java.io.File;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class DirectoryCOMP implements DataFrameCOMP {
 
     private String name;
     private List<DataFrameCOMP> children;
 
+    /*
     public DirectoryCOMP(String directoryPath) {
         this.name = directoryPath;
         this.children = new LinkedList<>();
@@ -19,6 +19,15 @@ public class DirectoryCOMP implements DataFrameCOMP {
             // TODO
             // afegir els subdirectoris a la llista de fills
         }
+    }
+*/
+    public DirectoryCOMP(String name) {
+        this.name = name;
+        children = new LinkedList<DataFrameCOMP>();
+    }
+
+    public void addChild(DataFrameCOMP child) {
+        children.add(child);
     }
 
     public int columns() {

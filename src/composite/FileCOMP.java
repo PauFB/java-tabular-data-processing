@@ -1,46 +1,27 @@
 package composite;
 
-import com.univocity.parsers.csv.CsvParser;
-import com.univocity.parsers.csv.CsvParserSettings;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import factory.*;
 
 public class FileCOMP implements DataFrameCOMP {
 
-    LinkedList<String> labelList = new LinkedList<>();
-    LinkedList<ArrayList<String>> content = new LinkedList<>();
+    DataFrame dataFrame;
 
     public FileCOMP(String filePath) {
-        CsvParserSettings settings = new CsvParserSettings();
-        settings.detectFormatAutomatically();
-
-        CsvParser parser = new CsvParser(settings);
-        List<String[]> rows = parser.parseAll(new File(filePath));
-
-        for (String label : rows.get(0)) {
-            labelList.add(label);
-            this.content.add(new ArrayList<>());
-        }
-
-        for (int i = 1; i < rows.size(); i++) {
-            String[] line = rows.get(i);
-            for (int j = 0; j < line.length; j++) {
-                this.content.get(j).add(line[j]);
-            }
+        if (filePath.contains(".csv")){
+            dataFrame = new CSVData(filePath);
+        } else if(filePath.contains(".json")){
+            dataFrame = new JSONData(filePath);
+        } else if(filePath.contains(".txt")){
+            dataFrame = new TXTData(filePath);
         }
     }
 
-    @Override
     public int columns() {
-        return this.labelList.size();
+        return dataFrame.columns();
     }
 
-    @Override
     public int size() {
-        return this.content.get(0).size();
+        return dataFrame.size();
     }
 
 }

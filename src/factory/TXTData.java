@@ -4,10 +4,7 @@ import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -62,14 +59,12 @@ public class TXTData implements DataFrame {
     public ArrayList<String> sort(String label, Comparator<Object> c) {
         int labelIndex = labelList.indexOf(label);
 
-        ArrayList<String> temp = content.get(labelIndex);
+        ArrayList<String> temp = (ArrayList<String>) content.get(labelIndex).clone();
         temp.sort(c);
 
         return temp;
     }
 
-    // parametre sera un metode duna interface,
-    // el qual es pot substituir per una lambda
     @Override
     public List<ArrayList<String>> query(String label, Predicate<String> func) {
         int col = labelList.indexOf(label);

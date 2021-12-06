@@ -73,7 +73,7 @@ public class CSVData implements DataFrame {
 	public ArrayList<String> sort(String label, Comparator<Object> c) {
 		int labelIndex = labelList.indexOf(label);
 		
-		ArrayList<String> temp = content.get(labelIndex);
+		ArrayList<String> temp = (ArrayList<String>) content.get(labelIndex).clone();
 		temp.sort(c);
 		
 		return temp;

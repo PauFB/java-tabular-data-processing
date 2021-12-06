@@ -81,14 +81,12 @@ public class JSONData implements DataFrame {
 	public ArrayList<String> sort(String label, Comparator<Object> c) {
 		int labelIndex = labelList.indexOf(label);
 
-		ArrayList<String> temp = content.get(labelIndex);
+		ArrayList<String> temp = (ArrayList<String>) content.get(labelIndex).clone();
 		temp.sort(c);
 
 		return temp;
 	}
 
-	// parametre sera un metode duna interface,
-	// el qual es pot substituir per una lambda
 	@Override
 	public List<ArrayList<String>> query(String label, Predicate<String> func) {
 		int col = labelList.indexOf(label);
