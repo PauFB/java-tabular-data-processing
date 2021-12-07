@@ -20,10 +20,11 @@ public class DirectoryCOMP implements DataFrameCOMP {
             // afegir els subdirectoris a la llista de fills
         }
     }
-*/
+    */
+
     public DirectoryCOMP(String name) {
         this.name = name;
-        children = new LinkedList<DataFrameCOMP>();
+        children = new LinkedList<>();
     }
 
     public void addChild(DataFrameCOMP child) {
@@ -42,6 +43,10 @@ public class DirectoryCOMP implements DataFrameCOMP {
         for (DataFrameCOMP child : this.children)
             result += child.size();
         return result;
+    }
+
+    public void accept(Visitor v) {
+        v.visit(this);
     }
 
 }

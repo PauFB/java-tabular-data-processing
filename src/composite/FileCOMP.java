@@ -24,4 +24,8 @@ public class FileCOMP implements DataFrameCOMP {
         return dataFrame.size();
     }
 
+    public void accept(Visitor v) {
+        v.visit(this);
+    }
+
 }

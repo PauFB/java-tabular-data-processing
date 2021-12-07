@@ -6,4 +6,6 @@ public interface DataFrameCOMP {
 
     int size();
 
+    void accept(Visitor v);
+
 }
