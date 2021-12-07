@@ -17,4 +17,12 @@ public interface DataFrame extends Iterable<ArrayList<String>>{
 
 	List<ArrayList<String>> query(String label, Predicate<String> predicate);
 
+	Double max(String label);
+
+	Double min(String label);
+
+	Double average(String label);
+
+	Double sum(String label);
+
 }

@@ -17,6 +17,10 @@ public class FileCOMP implements DataFrameCOMP {
         }
     }
 
+    public DataFrame getDataFrame() {
+        return dataFrame;
+    }
+
     public int columns() {
         return dataFrame.columns();
     }
@@ -25,8 +29,8 @@ public class FileCOMP implements DataFrameCOMP {
         return dataFrame.size();
     }
 
-    public void accept(Visitor v) {
-        v.visit(this);
+    public Double accept(Visitor v, String label) {
+        return v.visit(this, label);
     }
 
 }

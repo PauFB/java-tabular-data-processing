@@ -1,16 +1,30 @@
 package visitor;
 
-import composite.DirectoryCOMP;
-import composite.FileCOMP;
+import composite.*;
 
 public class MinimumVisitor implements Visitor {
 
-    public void visit(DirectoryCOMP d) {
-        // TODO
+    public Double visit(DirectoryCOMP d, String label) {
+        double min = Integer.MAX_VALUE;
+        Double visited;
+        for (DataFrameCOMP child : d.getChildren()) {
+            if (child instanceof DirectoryCOMP){
+                visited = this.visit((DirectoryCOMP) child, label);
+                if (visited != null && visited < min) {
+                    min = visited;
+                }
+            } else if (child instanceof FileCOMP){
+                visited = this.visit((FileCOMP) child, label);
+                if (visited != null && visited < min) {
+                    min = visited;
+                }
+            }
+        }
+        return min;
     }
 
-    public void visit(FileCOMP f) {
-        // TODO
+    public Double visit(FileCOMP f, String label) {
+        return f.getDataFrame().min(label);
     }
 
 }

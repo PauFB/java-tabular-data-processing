@@ -33,6 +33,10 @@ public class DirectoryCOMP implements DataFrameCOMP {
         children.add(child);
     }
 
+    public List<DataFrameCOMP> getChildren(){
+        return children;
+    }
+
     public int columns() {
         int result = 0;
         for (DataFrameCOMP child : this.children)
@@ -47,8 +51,8 @@ public class DirectoryCOMP implements DataFrameCOMP {
         return result;
     }
 
-    public void accept(Visitor v) {
-        v.visit(this);
+    public Double accept(Visitor v, String label) {
+        return v.visit(this, label);
     }
 
 }

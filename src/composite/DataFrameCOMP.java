@@ -8,6 +8,6 @@ public interface DataFrameCOMP {
 
     int size();
 
-    void accept(Visitor v);
+    Double accept(Visitor v, String label);
 
 }
