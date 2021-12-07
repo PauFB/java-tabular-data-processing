@@ -1,6 +1,7 @@
 package composite;
 
 import factory.*;
+import visitor.Visitor;
 
 public class FileCOMP implements DataFrameCOMP {
 

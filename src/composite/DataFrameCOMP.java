@@ -1,5 +1,7 @@
 package composite;
 
+import visitor.Visitor;
+
 public interface DataFrameCOMP {
 
     int columns();

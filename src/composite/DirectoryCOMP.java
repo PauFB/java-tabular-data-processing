@@ -1,5 +1,7 @@
 package composite;
 
+import visitor.Visitor;
+
 import java.io.File;
 import java.util.*;
 
