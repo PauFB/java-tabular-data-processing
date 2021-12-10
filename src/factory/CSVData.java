@@ -85,7 +85,7 @@ public class CSVData implements DataFrame {
 	public List<ArrayList<String>> query(String label, Predicate<String> func) {
 		int col = labelList.indexOf(label);
 
-		if (col != -1){
+		if (col != -1) {
 			List<String> filtered_column = content.get(col).stream().filter(func).collect(Collectors.toList());
 
 			LinkedList<ArrayList<String>> aux = new LinkedList<>();

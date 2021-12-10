@@ -3,12 +3,16 @@ package composite;
 import factory.*;
 import visitor.Visitor;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+
 public class FileCOMP implements DataFrameCOMP {
 
     DataFrame dataFrame;
 
     public FileCOMP(String filePath) {
-        if (filePath.contains(".csv")){
+        if (filePath.contains(".csv")) {
             dataFrame = new CSVData(filePath);
         } else if(filePath.contains(".json")){
             dataFrame = new JSONData(filePath);
@@ -27,6 +31,10 @@ public class FileCOMP implements DataFrameCOMP {
 
     public int size() {
         return dataFrame.size();
+    }
+
+    public List<ArrayList<String>> query(String label, Predicate<String> predicate) {
+        return dataFrame.query(label, predicate);
     }
 
     public Double accept(Visitor v, String label) {
