@@ -46,10 +46,16 @@ public class DirectoryCOMP implements DataFrameCOMP {
         return result;
     }
 
-    public List<ArrayList<String>> query(String label, Predicate<String> predicate) {
-        LinkedList<ArrayList<String>> result = new LinkedList<ArrayList<String>>();
+    public DataFrameCOMP query(String label, Predicate<String> predicate) {
+        DataFrameCOMP result = null;
+        Boolean firstHasBeenAdded = false;
         for (DataFrameCOMP child : this.children) {
-            result.addAll(child.query(label, predicate));
+            if (!firstHasBeenAdded && child instanceof FileCOMP) {
+                result = ((FileCOMP) child).clone();
+                firstHasBeenAdded = true;
+            } else {
+                result.getContent().addAll(child.query(label, predicate).getContent());
+            }
         }
         return result;
     }

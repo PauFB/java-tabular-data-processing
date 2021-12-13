@@ -21,6 +21,15 @@ public class FileCOMP implements DataFrameCOMP {
         }
     }
 
+    public FileCOMP(FileCOMP f) {
+        this.dataFrame = f.getDataFrame();
+    }
+
+    @Override
+    public FileCOMP clone() {
+        return new FileCOMP(this);
+    }
+
     public ArrayList<String> getContent(String label) {
         return dataFrame.getContent(label);
     }

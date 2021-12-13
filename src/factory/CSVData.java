@@ -10,6 +10,15 @@ public class CSVData implements DataFrame {
 	LinkedList<String> labelList = new LinkedList<>();
 	LinkedList<ArrayList<String>> content = new LinkedList<>();
 
+	public LinkedList<ArrayList<String>> getContent() {
+		return content;
+	}
+
+	public CSVData(LinkedList<String> labelList, LinkedList<ArrayList<String>> content) {
+		this.labelList = labelList;
+		this.content = content;
+	}
+
 	public CSVData(String fileName) {
 
 		try {

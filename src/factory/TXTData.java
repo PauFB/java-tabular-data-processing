@@ -33,6 +33,15 @@ public class TXTData implements DataFrame {
         }
     }
 
+    public LinkedList<ArrayList<String>> getContent() {
+        return content;
+    }
+
+    public TXTData(LinkedList<String> labelList, LinkedList<ArrayList<String>> content) {
+        this.labelList = labelList;
+        this.content = content;
+    }
+
     public ArrayList<String> getContent(String label) {
         int labelIndex = this.labelList.indexOf(label);
         if (labelIndex != -1) {

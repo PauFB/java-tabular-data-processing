@@ -14,6 +14,10 @@ public class JSONData implements DataFrame {
 	LinkedList<String> labelList = new LinkedList<>();
 	LinkedList<ArrayList<String>> content = new LinkedList<>();
 
+	public LinkedList<ArrayList<String>> getContent() {
+		return content;
+	}
+
 	public JSONData(String file) {
 		JSONParser parser = new JSONParser();
 
@@ -29,7 +33,7 @@ public class JSONData implements DataFrame {
 				}
 			};
 
-        	LinkedList<HashMap<String, String>> array = (LinkedList<HashMap<String, String>>)parser.parse(new FileReader(file), orderedKeyFactory);
+        	LinkedList<HashMap<String, String>> array = (LinkedList<HashMap<String, String>>) parser.parse(new FileReader(file), orderedKeyFactory);
 
 			HashMap<String, String> jsonObject = array.get(0);
             for (int i = 0; i < jsonObject.keySet().size(); i++) {
@@ -110,7 +114,7 @@ public class JSONData implements DataFrame {
 			}
 
 			for (int j = 0; j < this.size(); j++){
-				if (filtered_column.contains(content.get(col).get(j))){
+				if (filtered_column.contains(content.get(col).get(j))) {
 					for (int i = 0; i < this.columns(); i++){
 						aux.get(i).add(content.get(i).get(j));
 					}
