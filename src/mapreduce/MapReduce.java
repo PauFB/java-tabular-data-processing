@@ -2,10 +2,11 @@ package mapreduce;
 
 import composite.DataFrameCOMP;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.BinaryOperator;
-import java.util.function.Predicate;
+import java.util.function.*;
+import java.util.stream.Collectors;
 
 public class MapReduce {
 
@@ -17,8 +18,18 @@ public class MapReduce {
         //return result;
     }
 
-    public static Double reduce(Double identity, List<Double> values, BinaryOperator<Double> function) {
-        return values.stream().reduce(identity, function);
+    public Double reduce(List<Integer> values) {
+        Double suma = 0.0;
+        for (Integer elem : values) {
+            suma += elem;
+        }
+        return suma / values.size();
     }
+
+    /*
+    public LinkedList<ArrayList<String>> reduce(List<LinkedList<ArrayList<String>>> values) {
+        return null;
+    }
+     */
 
 }

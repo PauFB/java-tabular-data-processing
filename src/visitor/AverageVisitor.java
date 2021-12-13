@@ -2,7 +2,12 @@ package visitor;
 
 import composite.*;
 
+import java.util.ArrayList;
+
 public class AverageVisitor implements Visitor {
+
+    Double accumulator = 0.0;
+    int nElements = 0;
 
     public Double visit(DirectoryCOMP d, String label) {
         ArrayList<String> list;
