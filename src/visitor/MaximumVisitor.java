@@ -6,17 +6,17 @@ public class MaximumVisitor implements Visitor {
 
     public Double visit(DirectoryCOMP d, String label) {
         double max = Integer.MIN_VALUE;
-        Double visited;
+        Double maxValue;
         for (DataFrameCOMP child : d.getChildren()) {
-            if (child instanceof DirectoryCOMP){
-                visited = this.visit((DirectoryCOMP) child, label);
-                if (visited != null && visited > max) {
-                    max = visited;
+            if (child instanceof DirectoryCOMP) {
+                maxValue = this.visit((DirectoryCOMP) child, label);
+                if (maxValue != null && maxValue > max) {
+                    max = maxValue;
                 }
             } else if (child instanceof FileCOMP){
-                visited = this.visit((FileCOMP) child, label);
-                if (visited != null && visited > max) {
-                    max = visited;
+                maxValue = this.visit((FileCOMP) child, label);
+                if (maxValue != null && maxValue > max) {
+                    max = maxValue;
                 }
             }
         }

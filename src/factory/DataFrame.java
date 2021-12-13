@@ -3,7 +3,7 @@ package factory;
 import java.util.*;
 import java.util.function.Predicate;
 
-public interface DataFrame extends Iterable<ArrayList<String>>{
+public interface DataFrame extends Iterable<ArrayList<String>> {
 	
 	String at(int id, String label);
 	
@@ -24,5 +24,7 @@ public interface DataFrame extends Iterable<ArrayList<String>>{
 	Double average(String label);
 
 	Double sum(String label);
+
+	ArrayList<String> getContent(String label);
 
 }

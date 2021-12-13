@@ -5,22 +5,22 @@ import composite.*;
 public class SumVisitor implements Visitor {
 
     public Double visit(DirectoryCOMP d, String label) {
-        double sum = 0;
-        Double visited;
+        double totalSum = 0;
+        Double partialSum;
         for (DataFrameCOMP child : d.getChildren()) {
             if (child instanceof DirectoryCOMP){
-                visited = this.visit((DirectoryCOMP) child, label);
-                if (visited != null){
-                    sum += visited;
+                partialSum = this.visit((DirectoryCOMP) child, label);
+                if (partialSum != null){
+                    totalSum += partialSum;
                 }
             } else if (child instanceof FileCOMP){
-                visited = this.visit((FileCOMP) child, label);
-                if (visited != null){
-                    sum += visited;
+                partialSum = this.visit((FileCOMP) child, label);
+                if (partialSum != null){
+                    totalSum += partialSum;
                 }
             }
         }
-        return sum;
+        return totalSum;
     }
 
     public Double visit(FileCOMP f, String label) {

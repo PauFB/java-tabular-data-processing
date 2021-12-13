@@ -21,6 +21,10 @@ public class FileCOMP implements DataFrameCOMP {
         }
     }
 
+    public ArrayList<String> getContent(String label) {
+        return dataFrame.getContent(label);
+    }
+
     public DataFrame getDataFrame() {
         return dataFrame;
     }

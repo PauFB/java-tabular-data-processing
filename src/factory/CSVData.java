@@ -47,6 +47,14 @@ public class CSVData implements DataFrame {
 		}
 	}
 
+	public ArrayList<String> getContent(String label) {
+		int labelIndex = this.labelList.indexOf(label);
+		if (labelIndex != -1) {
+			return this.content.get(labelIndex);
+		}
+		return null;
+	}
+
 	@Override
 	public String at(int id, String label) {
 		int labelIndex = labelList.indexOf(label);

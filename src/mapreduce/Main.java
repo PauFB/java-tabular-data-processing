@@ -22,9 +22,9 @@ public class Main {
 
         DirectoryCOMP testdir = new DirectoryCOMP("C:\\Users\\paufe\\Desktop\\Test");
         List<DataFrameCOMP> list = Arrays.asList(testdir, f1, f2, f3);
-        List<Double> result  = MapReduce.map(list, new SizeAverage());
-        for (Double elem:result)
+        List<Integer> result  = MapReduce.map(list, new SizeAverage());
+        for (Integer elem : result)
             System.out.println(elem);
-        System.out.println("result reduce: " + MapReduce.reduce(0.0, result, (a, b) -> a + b));
+        //System.out.println("result reduce: " + MapReduce.reduce(0.0, result, (a, b) -> a + b));
     }
 }

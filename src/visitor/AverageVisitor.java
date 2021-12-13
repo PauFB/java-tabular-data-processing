@@ -5,29 +5,21 @@ import composite.*;
 public class AverageVisitor implements Visitor {
 
     public Double visit(DirectoryCOMP d, String label) {
-        Double avg = null;
-        boolean first = true;
-        Double visited;
+        ArrayList<String> list;
         for (DataFrameCOMP child : d.getChildren()) {
             if (child instanceof DirectoryCOMP) {
-                visited = this.visit((DirectoryCOMP) child, label);
-                if (visited != null && !first){
-                    avg = (visited + avg)/2;
-                } else if(visited != null && first){
-                    avg = visited;
-                    first = false;
-                }
+                this.visit((DirectoryCOMP) child, label);
             } else if (child instanceof FileCOMP) {
-                visited = this.visit((FileCOMP) child, label);
-                if (visited != null && !first){
-                    avg = (visited + avg)/2;
-                } else if(visited != null && first){
-                    avg = visited;
-                    first = false;
+                list = ((FileCOMP) child).getContent(label);
+                if (list != null) {
+                    for (String value : list) {
+                        accumulator += Integer.parseInt(value);
+                        nElements++;
+                    }
                 }
             }
         }
-        return avg;
+        return this.accumulator / this.nElements;
     }
 
     public Double visit(FileCOMP f, String label) {

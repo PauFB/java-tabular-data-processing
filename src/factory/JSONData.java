@@ -55,6 +55,14 @@ public class JSONData implements DataFrame {
 		
 	}
 
+	public ArrayList<String> getContent(String label) {
+		int labelIndex = this.labelList.indexOf(label);
+		if (labelIndex != -1) {
+			return this.content.get(labelIndex);
+		}
+		return null;
+	}
+
 	@Override
 	public String at(int id, String label) {
 		int labelIndex = labelList.indexOf(label);
@@ -81,7 +89,7 @@ public class JSONData implements DataFrame {
 	public ArrayList<String> sort(String label, Comparator<Object> c) {
 		int labelIndex = labelList.indexOf(label);
 
-		if (labelIndex != -1){
+		if (labelIndex != -1) {
 			ArrayList<String> temp = (ArrayList<String>) content.get(labelIndex).clone();
 			temp.sort(c);
 			return temp;

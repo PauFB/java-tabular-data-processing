@@ -33,6 +33,14 @@ public class TXTData implements DataFrame {
         }
     }
 
+    public ArrayList<String> getContent(String label) {
+        int labelIndex = this.labelList.indexOf(label);
+        if (labelIndex != -1) {
+            return this.content.get(labelIndex);
+        }
+        return null;
+    }
+
     @Override
     public String at(int id, String label) {
         int labelIndex = labelList.indexOf(label);
@@ -160,14 +168,14 @@ public class TXTData implements DataFrame {
         double sum = 0;
         int labelIndex = labelList.indexOf(label);
 
-        if (labelIndex != -1){
+        if (labelIndex != -1) {
             ArrayList<String> temp = (ArrayList<String>) content.get(labelIndex).clone();
-            try{
+            try {
                 for (String elem : temp){
                     sum += Integer.parseInt(elem);
                 }
                 return sum;
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.out.println(e);
                 return null;
             }

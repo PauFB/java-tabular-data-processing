@@ -33,7 +33,6 @@ public class Main {
 		List<ArrayList<String>> JSONquery = dataFrame2.query("LatD", x -> Integer.parseInt(x) < 30);
 		System.out.println("LatD < 30: " + JSONquery + "\n");
 
-
 		System.out.println("****	Prova TXT	****");
 		DataFrameFactory factory3 = new TXTDataFactory();
 		DataFrame dataFrame3 = factory3.readFile("example.txt");

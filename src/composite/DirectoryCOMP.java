@@ -21,17 +21,8 @@ public class DirectoryCOMP implements DataFrameCOMP {
                 continue;
             }
             this.children.add(new DirectoryCOMP(file.getAbsolutePath()));
-            // TODO
-            // afegir els subdirectoris a la llista de fills
         }
     }
-
-    /*
-    public DirectoryCOMP(String name) {
-        this.name = name;
-        children = new LinkedList<>();
-    }
-    */
 
     public void addChild(DataFrameCOMP child) {
         children.add(child);

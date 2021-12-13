@@ -4,8 +4,8 @@ import composite.*;
 
 public interface Visitor {
 
-    public Double visit(DirectoryCOMP d, String label);
+    Double visit(DirectoryCOMP d, String label);
 
-    public Double visit(FileCOMP e, String label);
+    Double visit(FileCOMP f, String label);
 
 }

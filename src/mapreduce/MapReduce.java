@@ -9,11 +9,12 @@ import java.util.function.Predicate;
 
 public class MapReduce {
 
-    public static List<Double> map(List<DataFrameCOMP> list, IMap function) {
-        List<Double> result = new LinkedList<>();
-        for (DataFrameCOMP elem : list)
-            result.add(Double.valueOf(function.apply(elem)));
-        return result;
+    public static List<Integer> map(List<DataFrameCOMP> list, Function function) {
+        return (List<Integer>) list.parallelStream().map(function).collect(Collectors.toList());
+
+        //for (DataFrameCOMP elem : list)
+            //result.add(Double.valueOf(function.apply(elem)));
+        //return result;
     }
 
     public static Double reduce(Double identity, List<Double> values, BinaryOperator<Double> function) {
