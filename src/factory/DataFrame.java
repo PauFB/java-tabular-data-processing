@@ -15,7 +15,7 @@ public interface DataFrame extends Iterable<ArrayList<String>> {
 
 	ArrayList<String> sort(String label, Comparator<Object> c);
 
-	List<ArrayList<String>> query(String label, Predicate<String> predicate);
+	DataFrame query(String label, Predicate<String> predicate);
 
 	Double max(String label);
 
@@ -24,6 +24,8 @@ public interface DataFrame extends Iterable<ArrayList<String>> {
 	Double average(String label);
 
 	Double sum(String label);
+
+	LinkedList<ArrayList<String>> getContent();
 
 	ArrayList<String> getContent(String label);
 

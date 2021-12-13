@@ -1,5 +1,6 @@
 package composite;
 
+import factory.DataFrame;
 import visitor.Visitor;
 
 import java.io.File;
@@ -58,6 +59,14 @@ public class DirectoryCOMP implements DataFrameCOMP {
             }
         }
         return result;
+    }
+
+    public LinkedList<ArrayList<String>> getContent() {
+        LinkedList<ArrayList<String>> aux = new LinkedList<>();
+        for (DataFrameCOMP child : this.children) {
+            aux.addAll(child.getContent());
+        }
+        return aux;
     }
 
     public Double accept(Visitor v, String label) {

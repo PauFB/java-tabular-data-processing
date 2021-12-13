@@ -101,8 +101,13 @@ public class JSONData implements DataFrame {
 		return null;
 	}
 
+	public JSONData(LinkedList<String> labelList, LinkedList<ArrayList<String>> content) {
+		this.labelList = labelList;
+		this.content = content;
+	}
+
 	@Override
-	public List<ArrayList<String>> query(String label, Predicate<String> func) {
+	public DataFrame query(String label, Predicate<String> func) {
 		int col = labelList.indexOf(label);
 
 		if (col != -1){
@@ -121,7 +126,7 @@ public class JSONData implements DataFrame {
 				}
 			}
 
-			return aux;
+			return new JSONData(labelList, aux);
 		}
 		return null;
 	}

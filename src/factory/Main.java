@@ -16,8 +16,8 @@ public class Main {
 		System.out.println("Size: " + dataFrame.size());
 		ArrayList<String> CSVsort = dataFrame.sort("Code", new IntAscending());
 		System.out.println("Primera columna despres de sort Code ascendent: " + CSVsort);
-		List<ArrayList<String>> CSVquery = dataFrame.query("Code", x -> Integer.parseInt(x) > 113);
-		System.out.println("Code > 113: " + CSVquery + "\n");
+		DataFrame CSVquery = dataFrame.query("Code", x -> Integer.parseInt(x) > 113);
+		System.out.println("Code > 113: " + CSVquery.getContent() + "\n");
 
 
 		System.out.println("****	Prova JSON	****");
@@ -30,8 +30,8 @@ public class Main {
 		System.out.println("Size: " + dataFrame2.size());
 		ArrayList<String> JSONsort = dataFrame2.sort("LatD", new IntAscending());
 		System.out.println("Primera columna despres de sort LatD ascendent: " + JSONsort);
-		List<ArrayList<String>> JSONquery = dataFrame2.query("LatD", x -> Integer.parseInt(x) < 30);
-		System.out.println("LatD < 30: " + JSONquery + "\n");
+		DataFrame JSONquery = dataFrame2.query("LatD", x -> Integer.parseInt(x) < 30);
+		System.out.println("LatD < 30: " + JSONquery.getContent() + "\n");
 
 		System.out.println("****	Prova TXT	****");
 		DataFrameFactory factory3 = new TXTDataFactory();
@@ -43,8 +43,8 @@ public class Main {
 		System.out.println("Size: " + dataFrame3.size());
 		ArrayList<String> TXTsort = dataFrame3.sort("Code", new IntAscending());
 		System.out.println("Primera columna despres de sort Code ascendent: " + TXTsort);
-		List<ArrayList<String>> TXTquery = dataFrame3.query("Code", x -> Integer.parseInt(x) > 113);
-		System.out.println("Code > 113: " + TXTquery + "\n");
+		DataFrame TXTquery = dataFrame3.query("Code", x -> Integer.parseInt(x) > 113);
+		System.out.println("Code > 113: " + TXTquery.getContent() + "\n");
 	}
 
 }

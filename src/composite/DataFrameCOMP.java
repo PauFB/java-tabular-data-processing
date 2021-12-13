@@ -13,7 +13,7 @@ public interface DataFrameCOMP {
 
     int size();
 
-    List<ArrayList<String>> query(String label, Predicate<String> predicate);
+    DataFrameCOMP query(String label, Predicate<String> predicate);
 
     Double accept(Visitor v, String label);
 

@@ -4,7 +4,7 @@ import factory.*;
 import visitor.Visitor;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.function.Predicate;
 
 public class FileCOMP implements DataFrameCOMP {
@@ -46,8 +46,12 @@ public class FileCOMP implements DataFrameCOMP {
         return dataFrame.size();
     }
 
-    public List<ArrayList<String>> query(String label, Predicate<String> predicate) {
-        return dataFrame.query(label, predicate);
+    public DataFrameCOMP query(String label, Predicate<String> predicate) {
+        return (DataFrameCOMP) dataFrame.query(label, predicate);
+    }
+
+    public LinkedList<ArrayList<String>> getContent(){
+        return dataFrame.getContent();
     }
 
     public Double accept(Visitor v, String label) {
