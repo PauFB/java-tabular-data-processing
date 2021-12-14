@@ -26,9 +26,14 @@ public class Main {
         System.out.println("Query ..." + dirQueryTest.query("Code", x -> Integer.parseInt(x) >= 888));
         */
 
-        DirectoryCOMP dir = new DirectoryCOMP("C:\\Users\\paufe\\Desktop\\Test");
-        System.out.println("test columns " + dir.columns());
-        System.out.println("test size " + dir.size());
-        System.out.println("test query " + dir.query("Code", x -> Integer.parseInt(x) >= 888));
+        DirectoryCOMP dir = new DirectoryCOMP("dir1");
+        System.out.println("Dir1 columns " + dir.columns());
+        System.out.println("Dir1 size " + dir.size());
+        System.out.println("Dir1 query " + (dir.query("Code", x -> Integer.parseInt(x) >= 888)).getContent());
+
+        DirectoryCOMP dir2 = new DirectoryCOMP("dir2");
+        System.out.println("Dir2 columns " + dir2.columns());
+        System.out.println("Dir2 size " + dir2.size());
+        System.out.println("Dir2 query " + (dir2.query("LatD", x -> Integer.parseInt(x) >= 50)).getContent());
     }
 }

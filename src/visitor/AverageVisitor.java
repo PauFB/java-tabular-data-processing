@@ -1,6 +1,7 @@
 package visitor;
 
 import composite.*;
+import factory.DataFrame;
 
 import java.util.ArrayList;
 
@@ -11,11 +12,11 @@ public class AverageVisitor implements Visitor {
 
     public Double visit(DirectoryCOMP d, String label) {
         ArrayList<String> list;
-        for (DataFrameCOMP child : d.getChildren()) {
+        for (DataFrame child : d.getChildren()) {
             if (child instanceof DirectoryCOMP) {
                 this.visit((DirectoryCOMP) child, label);
             } else if (child instanceof FileCOMP) {
-                list = ((FileCOMP) child).getContent(label);
+                list = ((FileCOMP) child).getColumn(label);
                 if (list != null) {
                     for (String value : list) {
                         accumulator += Integer.parseInt(value);
@@ -24,11 +25,14 @@ public class AverageVisitor implements Visitor {
                 }
             }
         }
+        if (accumulator == 0 && nElements == 0){
+            return null;
+        }
         return this.accumulator / this.nElements;
     }
 
     public Double visit(FileCOMP f, String label) {
-        return f.getDataFrame().average(label);
+        return f.average(label);
     }
 
 }

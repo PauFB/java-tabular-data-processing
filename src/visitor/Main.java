@@ -1,8 +1,7 @@
 package visitor;
 
-import composite.DataFrameCOMP;
-import composite.DirectoryCOMP;
-import composite.FileCOMP;
+import composite.*;
+import factory.DataFrame;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,27 +9,49 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        /*
+        FileCOMP f1 = new FileCOMP("DimenLookupAge8277.csv");
+        FileCOMP f2 = new FileCOMP("cities.json");
+        FileCOMP f3 = new FileCOMP("example.txt");
+
         DirectoryCOMP dir1 = new DirectoryCOMP("dir1");
         DirectoryCOMP dir2 = new DirectoryCOMP("dir2");
-        FileCOMP f1 = new FileCOMP("DimenLookupAge8277.csv");
-        FileCOMP f2 = new FileCOMP("cities.json");
-        FileCOMP f3 = new FileCOMP("example.txt");
-        dir1.addChild(f1);
-        dir2.addChild(f2);
-        dir2.addChild(f3);
-        */
+        List<DataFrame> list = Arrays.asList(dir1, f1, f3);
+        List<DataFrame> list2 = Arrays.asList(dir2, f2);
 
+        System.out.println("Maxim dir1 SortOrder");
+        for (DataFrame d : list) {
+            System.out.println(d.accept(new MaximumVisitor(),"SortOrder"));
+        }
+        System.out.println("Maxim dir2 LatD");
+        for (DataFrame d : list2) {
+            System.out.println(d.accept(new MaximumVisitor(),"LatD"));
+        }
 
-        FileCOMP f1 = new FileCOMP("DimenLookupAge8277.csv");
-        FileCOMP f2 = new FileCOMP("cities.json");
-        FileCOMP f3 = new FileCOMP("example.txt");
+        System.out.println("\nMinim dir1 SortOrder");
+        for (DataFrame d : list) {
+            System.out.println(d.accept(new MinimumVisitor(),"SortOrder"));
+        }
+        System.out.println("Minim dir2 LatD");
+        for (DataFrame d : list2) {
+            System.out.println(d.accept(new MinimumVisitor(),"LatD"));
+        }
 
-        DirectoryCOMP testdir = new DirectoryCOMP("C:\\Users\\paufe\\Desktop\\Test");
-        List<DataFrameCOMP> list = Arrays.asList(testdir, f1, f2, f3);
+        System.out.println("\nSuma dir1 SortOrder");
+        for (DataFrame d : list) {
+            System.out.println(d.accept(new SumVisitor(),"SortOrder"));
+        }
+        System.out.println("Suma dir2 LatD");
+        for (DataFrame d : list2) {
+            System.out.println(d.accept(new SumVisitor(),"LatD"));
+        }
 
-        for (DataFrameCOMP d : list) {
+        System.out.println("\nMitjana dir1 SortOrder");
+        for (DataFrame d : list) {
             System.out.println(d.accept(new AverageVisitor(),"SortOrder"));
+        }
+        System.out.println("Mitjana dir2 LatD");
+        for (DataFrame d : list2) {
+            System.out.println(d.accept(new AverageVisitor(),"LatD"));
         }
     }
 }

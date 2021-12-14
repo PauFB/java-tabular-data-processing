@@ -2,6 +2,7 @@ package factory;
 
 import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
+import visitor.Visitor;
 
 import java.io.File;
 import java.util.*;
@@ -42,11 +43,16 @@ public class TXTData implements DataFrame {
         this.content = content;
     }
 
-    public ArrayList<String> getContent(String label) {
+    public ArrayList<String> getColumn(String label) {
         int labelIndex = this.labelList.indexOf(label);
         if (labelIndex != -1) {
             return this.content.get(labelIndex);
         }
+        return null;
+    }
+
+    @Override
+    public Double accept(Visitor v, String label) {
         return null;
     }
 

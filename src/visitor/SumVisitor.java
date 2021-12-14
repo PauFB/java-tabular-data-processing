@@ -1,13 +1,14 @@
 package visitor;
 
 import composite.*;
+import factory.DataFrame;
 
 public class SumVisitor implements Visitor {
 
     public Double visit(DirectoryCOMP d, String label) {
         double totalSum = 0;
         Double partialSum;
-        for (DataFrameCOMP child : d.getChildren()) {
+        for (DataFrame child : d.getChildren()) {
             if (child instanceof DirectoryCOMP){
                 partialSum = this.visit((DirectoryCOMP) child, label);
                 if (partialSum != null){
@@ -24,7 +25,7 @@ public class SumVisitor implements Visitor {
     }
 
     public Double visit(FileCOMP f, String label) {
-        return f.getDataFrame().sum(label);
+        return f.sum(label);
     }
 
 }

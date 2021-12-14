@@ -1,15 +1,15 @@
 package mapreduce;
 
-import composite.DataFrameCOMP;
 import factory.DataFrame;
 
 import java.util.function.Function;
 
-public class SizeAverage implements Function {
+
+public class Size implements Function {
 
     @Override
     public Object apply(Object o) {
-        return ((DataFrameCOMP) o).size();
+        return ((DataFrame)o).size();
     }
 
     /*

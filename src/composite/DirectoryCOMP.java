@@ -7,10 +7,10 @@ import java.io.File;
 import java.util.*;
 import java.util.function.Predicate;
 
-public class DirectoryCOMP implements DataFrameCOMP {
+public class DirectoryCOMP implements DataFrame {
 
     private String name;
-    private List<DataFrameCOMP> children;
+    private List<DataFrame> children;
 
     public DirectoryCOMP(String directoryPath) {
         this.name = directoryPath;
@@ -25,52 +25,96 @@ public class DirectoryCOMP implements DataFrameCOMP {
         }
     }
 
-    public void addChild(DataFrameCOMP child) {
-        children.add(child);
+    public List<DataFrame> getChildren(){
+        return children;
     }
 
-    public List<DataFrameCOMP> getChildren(){
-        return children;
+    @Override
+    public String at(int id, String label) {
+        return null;
+    }
+
+    @Override
+    public String iat(int i, int j) {
+        return null;
     }
 
     public int columns() {
         int result = 0;
-        for (DataFrameCOMP child : this.children)
+        for (DataFrame child : this.children)
             result += child.columns();
         return result;
     }
 
     public int size() {
         int result = 0;
-        for (DataFrameCOMP child : this.children)
+        for (DataFrame child : this.children)
             result += child.size();
         return result;
     }
 
-    public DataFrameCOMP query(String label, Predicate<String> predicate) {
-        DataFrameCOMP result = null;
+    @Override
+    public ArrayList<String> sort(String label, Comparator<Object> c) {
+        return null;
+    }
+
+    public DataFrame query(String label, Predicate<String> predicate) {
+        DataFrame result = null;
         Boolean firstHasBeenAdded = false;
-        for (DataFrameCOMP child : this.children) {
-            if (!firstHasBeenAdded && child instanceof FileCOMP) {
-                result = ((FileCOMP) child).clone();
-                firstHasBeenAdded = true;
+        for (DataFrame child : this.children) {
+            if (!firstHasBeenAdded) {
+                if (child.query(label, predicate) != null){
+                    result = child.query(label, predicate);
+                    firstHasBeenAdded = true;
+                }
             } else {
-                result.getContent().addAll(child.query(label, predicate).getContent());
+                for (int i = 0; i < result.getContent().size(); i++){
+                    result.getContent().get(i).addAll(child.query(label, predicate).getContent().get(i));
+                }
             }
         }
         return result;
     }
 
+    @Override
+    public Double max(String label) {
+        return null;
+    }
+
+    @Override
+    public Double min(String label) {
+        return null;
+    }
+
+    @Override
+    public Double average(String label) {
+        return null;
+    }
+
+    @Override
+    public Double sum(String label) {
+        return null;
+    }
+
     public LinkedList<ArrayList<String>> getContent() {
         LinkedList<ArrayList<String>> aux = new LinkedList<>();
-        for (DataFrameCOMP child : this.children) {
+        for (DataFrame child : this.children) {
             aux.addAll(child.getContent());
         }
         return aux;
+    }
+
+    @Override
+    public ArrayList<String> getColumn(String label) {
+        return null;
     }
 
     public Double accept(Visitor v, String label) {
         return v.visit(this, label);
     }
 
+    @Override
+    public Iterator<ArrayList<String>> iterator() {
+        return null;
+    }
 }

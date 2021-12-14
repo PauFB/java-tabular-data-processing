@@ -1,7 +1,10 @@
 package factory;
 
+import visitor.AverageVisitor;
+
 import java.util.*;
 import java.util.function.Predicate;
+import visitor.*;
 
 public interface DataFrame extends Iterable<ArrayList<String>> {
 	
@@ -27,6 +30,7 @@ public interface DataFrame extends Iterable<ArrayList<String>> {
 
 	LinkedList<ArrayList<String>> getContent();
 
-	ArrayList<String> getContent(String label);
+	ArrayList<String> getColumn(String label);
 
+	Double accept(Visitor v, String label);
 }
