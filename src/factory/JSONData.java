@@ -69,9 +69,7 @@ public class JSONData implements DataFrame {
 	}
 
 	@Override
-	public Double accept(Visitor v, String label) {
-		return null;
-	}
+	public void accept(Visitor v, String label) {}
 
 	@Override
 	public String at(int id, String label) {

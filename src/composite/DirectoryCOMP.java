@@ -67,8 +67,8 @@ public class DirectoryCOMP implements DataFrame {
                     result = child.query(label, predicate);
                     firstHasBeenAdded = true;
                 }
-            } else {
-                for (int i = 0; i < result.getContent().size(); i++){
+            } else if (child.query(label, predicate) != null) {
+                for (int i = 0; i < result.getContent().size(); i++) {
                     result.getContent().get(i).addAll(child.query(label, predicate).getContent().get(i));
                 }
             }
@@ -109,8 +109,8 @@ public class DirectoryCOMP implements DataFrame {
         return null;
     }
 
-    public Double accept(Visitor v, String label) {
-        return v.visit(this, label);
+    public void accept(Visitor v, String label) {
+        v.visit(this, label);
     }
 
     @Override

@@ -26,5 +26,9 @@ public class Main {
         for (Integer elem : columnes)
             System.out.println(elem);
         System.out.println("Mitjana columnes: " + MapReduce.reduce(columnes));
+
+        List<DataFrame> query_list = MapReduce.map(list, new Query("Code", x -> Integer.parseInt(x) > 888));
+        System.out.println("Resultat query: " + MapReduce.reduce(query_list).getContent());
+
     }
 }

@@ -82,8 +82,8 @@ public class FileCOMP implements DataFrame {
         return dataFrame.getContent();
     }
 
-    public Double accept(Visitor v, String label) {
-        return v.visit(this, label);
+    public void accept(Visitor v, String label) {
+        v.visit(this, label);
     }
 
     @Override
