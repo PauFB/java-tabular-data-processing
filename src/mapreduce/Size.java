@@ -4,18 +4,10 @@ import factory.DataFrame;
 
 import java.util.function.Function;
 
-
-public class Size implements Function {
+public class Size implements Function<DataFrame,Integer> {
 
     @Override
-    public Object apply(Object o) {
-        return ((DataFrame)o).size();
-    }
-
-    /*
-    public int apply(DataFrameCOMP dataFrame) {
+    public Integer apply(DataFrame dataFrame) {
         return dataFrame.size();
     }
-    */
-
 }

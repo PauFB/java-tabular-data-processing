@@ -5,27 +5,27 @@ import factory.DataFrame;
 
 public class SumVisitor implements Visitor {
 
-    public Double visit(DirectoryCOMP d, String label) {
-        double totalSum = 0;
-        Double partialSum;
+    private Double result = 0.0;
+
+    public void visit(DirectoryCOMP d, String label) {
         for (DataFrame child : d.getChildren()) {
             if (child instanceof DirectoryCOMP){
-                partialSum = this.visit((DirectoryCOMP) child, label);
-                if (partialSum != null){
-                    totalSum += partialSum;
-                }
+                visit((DirectoryCOMP) child, label);
             } else if (child instanceof FileCOMP){
-                partialSum = this.visit((FileCOMP) child, label);
-                if (partialSum != null){
-                    totalSum += partialSum;
-                }
+                visit((FileCOMP) child, label);
             }
         }
-        return totalSum;
     }
 
-    public Double visit(FileCOMP f, String label) {
-        return f.sum(label);
+    public void visit(FileCOMP f, String label) {
+        Double partialSum = f.sum(label);
+        if (partialSum != null){
+            result += partialSum;
+        }
+    }
+
+    public Double getResult() {
+        return result;
     }
 
 }

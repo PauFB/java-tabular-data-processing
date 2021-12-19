@@ -1,7 +1,7 @@
 package composite;
 
-import factory.DataFrame;
-import visitor.Visitor;
+import factory.*;
+import visitor.*;
 
 import java.io.File;
 import java.util.*;
@@ -9,19 +9,19 @@ import java.util.function.Predicate;
 
 public class DirectoryCOMP implements DataFrame {
 
-    private String name;
-    private List<DataFrame> children;
+    private final String name;
+    private final List<DataFrame> children;
 
     public DirectoryCOMP(String directoryPath) {
-        this.name = directoryPath;
-        this.children = new LinkedList<>();
+        name = directoryPath;
+        children = new LinkedList<>();
         File directory = new File(directoryPath);
         for (File file : directory.listFiles()) {
             if (!file.isDirectory()) {
-                this.children.add(new FileCOMP(file.getAbsolutePath()));
+                children.add(new FileCOMP(file.getAbsolutePath()));
                 continue;
             }
-            this.children.add(new DirectoryCOMP(file.getAbsolutePath()));
+            children.add(new DirectoryCOMP(file.getAbsolutePath()));
         }
     }
 
@@ -29,12 +29,14 @@ public class DirectoryCOMP implements DataFrame {
         return children;
     }
 
-    @Override
+    public String getName(){
+        return name;
+    }
+
     public String at(int id, String label) {
         return null;
     }
 
-    @Override
     public String iat(int i, int j) {
         return null;
     }
@@ -53,14 +55,13 @@ public class DirectoryCOMP implements DataFrame {
         return result;
     }
 
-    @Override
     public ArrayList<String> sort(String label, Comparator<Object> c) {
         return null;
     }
 
     public DataFrame query(String label, Predicate<String> predicate) {
         DataFrame result = null;
-        Boolean firstHasBeenAdded = false;
+        boolean firstHasBeenAdded = false;
         for (DataFrame child : this.children) {
             if (!firstHasBeenAdded) {
                 if (child.query(label, predicate) != null){
@@ -76,22 +77,18 @@ public class DirectoryCOMP implements DataFrame {
         return result;
     }
 
-    @Override
     public Double max(String label) {
         return null;
     }
 
-    @Override
     public Double min(String label) {
         return null;
     }
 
-    @Override
     public Double average(String label) {
         return null;
     }
 
-    @Override
     public Double sum(String label) {
         return null;
     }
@@ -104,7 +101,6 @@ public class DirectoryCOMP implements DataFrame {
         return aux;
     }
 
-    @Override
     public ArrayList<String> getColumn(String label) {
         return null;
     }
@@ -113,8 +109,16 @@ public class DirectoryCOMP implements DataFrame {
         v.visit(this, label);
     }
 
-    @Override
     public Iterator<ArrayList<String>> iterator() {
-        return null;
+        return children.get(0).iterator();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder aux = new StringBuilder();
+        for (DataFrame child : children){
+            aux.append(child.toString()).append("\n");
+        }
+        return aux.toString();
     }
 }

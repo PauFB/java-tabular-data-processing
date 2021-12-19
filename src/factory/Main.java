@@ -6,7 +6,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		System.out.println("****	Prova CSV	****");
+		System.out.println("****	Test CSV	****");
 		DataFrameFactory factory = new CSVDataFactory();
 		DataFrame dataFrame = factory.readFile("DimenLookupAge8277.csv");
 
@@ -15,12 +15,12 @@ public class Main {
 		System.out.println("Columns: " + dataFrame.columns());
 		System.out.println("Size: " + dataFrame.size());
 		ArrayList<String> CSVsort = dataFrame.sort("Code", new IntAscending());
-		System.out.println("Primera columna despres de sort Code ascendent: " + CSVsort);
+		System.out.println("Sort IntAscending Code: " + CSVsort);
 		DataFrame CSVquery = dataFrame.query("Code", x -> Integer.parseInt(x) > 113);
-		System.out.println("Code > 113: " + CSVquery.getContent() + "\n");
+		System.out.println("Code > 113:\n" + CSVquery + "\n");
 
 
-		System.out.println("****	Prova JSON	****");
+		System.out.println("****	Test JSON	****");
 		DataFrameFactory factory2 = new JSONDataFactory();
 		DataFrame dataFrame2 = factory2.readFile("cities.json");
 
@@ -29,11 +29,11 @@ public class Main {
 		System.out.println("Columns: " + dataFrame2.columns());
 		System.out.println("Size: " + dataFrame2.size());
 		ArrayList<String> JSONsort = dataFrame2.sort("LatD", new IntAscending());
-		System.out.println("Primera columna despres de sort LatD ascendent: " + JSONsort);
+		System.out.println("Sort IntAscending LatD: " + JSONsort);
 		DataFrame JSONquery = dataFrame2.query("LatD", x -> Integer.parseInt(x) < 30);
-		System.out.println("LatD < 30: " + JSONquery.getContent() + "\n");
+		System.out.println("LatD < 30:\n" + JSONquery + "\n");
 
-		System.out.println("****	Prova TXT	****");
+		System.out.println("****	Test TXT	****");
 		DataFrameFactory factory3 = new TXTDataFactory();
 		DataFrame dataFrame3 = factory3.readFile("example.txt");
 
@@ -42,9 +42,9 @@ public class Main {
 		System.out.println("Columns: " + dataFrame3.columns());
 		System.out.println("Size: " + dataFrame3.size());
 		ArrayList<String> TXTsort = dataFrame3.sort("Code", new IntAscending());
-		System.out.println("Primera columna despres de sort Code ascendent: " + TXTsort);
+		System.out.println("Sort IntAscending Code: " + TXTsort);
 		DataFrame TXTquery = dataFrame3.query("Code", x -> Integer.parseInt(x) > 113);
-		System.out.println("Code > 113: " + TXTquery.getContent() + "\n");
+		System.out.println("Code > 113:\n" + TXTquery + "\n");
 	}
 
 }

@@ -15,43 +15,62 @@ public class Main {
 
         DirectoryCOMP dir1 = new DirectoryCOMP("dir1");
         DirectoryCOMP dir2 = new DirectoryCOMP("dir2");
+
         List<DataFrame> list = Arrays.asList(dir1, f1, f3);
         List<DataFrame> list2 = Arrays.asList(dir2, f2);
 
+        Visitor v;
+
         System.out.println("Maxim dir1 SortOrder");
         for (DataFrame d : list) {
-            System.out.println(d.accept(new MaximumVisitor(),"SortOrder"));
+            v = new MaximumVisitor();
+            d.accept(v,"SortOrder");
+            System.out.println(v.getResult());
         }
         System.out.println("Maxim dir2 LatD");
         for (DataFrame d : list2) {
-            System.out.println(d.accept(new MaximumVisitor(),"LatD"));
+            v = new MaximumVisitor();
+            d.accept(v,"LatD");
+            System.out.println(v.getResult());
         }
 
         System.out.println("\nMinim dir1 SortOrder");
         for (DataFrame d : list) {
-            System.out.println(d.accept(new MinimumVisitor(),"SortOrder"));
+            v = new MinimumVisitor();
+            d.accept(v,"SortOrder");
+            System.out.println(v.getResult());
         }
         System.out.println("Minim dir2 LatD");
         for (DataFrame d : list2) {
-            System.out.println(d.accept(new MinimumVisitor(),"LatD"));
+            v = new MinimumVisitor();
+            d.accept(v,"LatD");
+            System.out.println(v.getResult());
         }
 
         System.out.println("\nSuma dir1 SortOrder");
         for (DataFrame d : list) {
-            System.out.println(d.accept(new SumVisitor(),"SortOrder"));
+            v = new SumVisitor();
+            d.accept(v,"SortOrder");
+            System.out.println(v.getResult());
         }
         System.out.println("Suma dir2 LatD");
         for (DataFrame d : list2) {
-            System.out.println(d.accept(new SumVisitor(),"LatD"));
+            v = new SumVisitor();
+            d.accept(v,"LatD");
+            System.out.println(v.getResult());
         }
 
         System.out.println("\nMitjana dir1 SortOrder");
         for (DataFrame d : list) {
-            System.out.println(d.accept(new AverageVisitor(),"SortOrder"));
+            v = new AverageVisitor();
+            d.accept(v,"SortOrder");
+            System.out.println(v.getResult());
         }
         System.out.println("Mitjana dir2 LatD");
         for (DataFrame d : list2) {
-            System.out.println(d.accept(new AverageVisitor(),"LatD"));
+            v = new AverageVisitor();
+            d.accept(v,"LatD");
+            System.out.println(v.getResult());
         }
     }
 }

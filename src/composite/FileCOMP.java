@@ -1,12 +1,9 @@
 package composite;
 
 import factory.*;
-import visitor.Visitor;
+import visitor.*;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.function.Predicate;
 
 public class FileCOMP implements DataFrame {
@@ -23,20 +20,15 @@ public class FileCOMP implements DataFrame {
         }
     }
 
-    public ArrayList<String> getColumn(String label) {
-        return dataFrame.getColumn(label);
-    }
-
     public DataFrame getDataFrame() {
         return dataFrame;
     }
 
-    @Override
+
     public String at(int id, String label) {
         return dataFrame.at(id, label);
     }
 
-    @Override
     public String iat(int i, int j) {
         return dataFrame.iat(i,j);
     }
@@ -49,7 +41,6 @@ public class FileCOMP implements DataFrame {
         return dataFrame.size();
     }
 
-    @Override
     public ArrayList<String> sort(String label, Comparator<Object> c) {
         return dataFrame.sort(label, c);
     }
@@ -58,22 +49,18 @@ public class FileCOMP implements DataFrame {
         return dataFrame.query(label, predicate);
     }
 
-    @Override
     public Double max(String label) {
         return dataFrame.max(label);
     }
 
-    @Override
     public Double min(String label) {
         return dataFrame.min(label);
     }
 
-    @Override
     public Double average(String label) {
         return dataFrame.average(label);
     }
 
-    @Override
     public Double sum(String label) {
         return dataFrame.sum(label);
     }
@@ -82,12 +69,19 @@ public class FileCOMP implements DataFrame {
         return dataFrame.getContent();
     }
 
+    public ArrayList<String> getColumn(String label) {
+        return dataFrame.getColumn(label);
+    }
+
     public void accept(Visitor v, String label) {
         v.visit(this, label);
     }
 
-    @Override
     public Iterator<ArrayList<String>> iterator() {
         return dataFrame.iterator();
+    }
+
+    public String toString() {
+        return dataFrame.toString();
     }
 }

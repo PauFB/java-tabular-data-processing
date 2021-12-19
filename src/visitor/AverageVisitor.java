@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 public class AverageVisitor implements Visitor {
 
-    Double accumulator = 0.0;
+    double accumulator = 0.0;
     int nElements = 0;
-    Double result = 0.0;
+    Double result = null;
 
     // no retornar resultats
     // guardar el resultat en una variable de cada classe "visitor"
@@ -17,9 +17,9 @@ public class AverageVisitor implements Visitor {
         ArrayList<String> list;
         for (DataFrame child : d.getChildren()) {
             if (child instanceof DirectoryCOMP) {
-                this.visit((DirectoryCOMP) child, label);
+                visit((DirectoryCOMP) child, label);
             } else if (child instanceof FileCOMP) {
-                list = ((FileCOMP) child).getColumn(label);
+                list = child.getColumn(label);
                 if (list != null) {
                     for (String value : list) {
                         accumulator += Integer.parseInt(value);
@@ -28,17 +28,16 @@ public class AverageVisitor implements Visitor {
                 }
             }
         }
-        if (accumulator == 0 && nElements == 0){
-            this.result = null;
+        if (nElements != 0){
+            result = accumulator/nElements;
         }
-        this.result = this.accumulator / this.nElements;
     }
 
     public void visit(FileCOMP f, String label) {
-        this.result = f.average(label);
+        result = f.average(label);
     }
 
     public Double getResult() {
-        return this.result;
+        return result;
     }
 }

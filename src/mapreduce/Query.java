@@ -5,7 +5,7 @@ import factory.DataFrame;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class Query implements Function {
+public class Query implements Function<DataFrame, DataFrame> {
 
     String label;
     Predicate<String> predicate;
@@ -16,8 +16,7 @@ public class Query implements Function {
     }
 
     @Override
-    public Object apply(Object o) {
-        return ((DataFrame) o).query(this.label, this.predicate);
+    public DataFrame apply(DataFrame dataFrame) {
+        return dataFrame.query(label,predicate);
     }
-
 }

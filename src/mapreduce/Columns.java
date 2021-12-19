@@ -4,10 +4,10 @@ import factory.DataFrame;
 
 import java.util.function.Function;
 
-public class Columns implements Function {
+public class Columns implements Function<DataFrame, Integer> {
 
     @Override
-    public Object apply(Object o) {
-        return ((DataFrame)o).columns();
+    public Integer apply(DataFrame dataFrame) {
+        return dataFrame.columns();
     }
 }

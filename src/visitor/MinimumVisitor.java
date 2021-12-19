@@ -5,27 +5,27 @@ import factory.DataFrame;
 
 public class MinimumVisitor implements Visitor {
 
-    public Double visit(DirectoryCOMP d, String label) {
-        double min = Integer.MAX_VALUE;
-        Double minValue;
+    private Double result = Double.MAX_VALUE;
+
+    public void visit(DirectoryCOMP d, String label) {
         for (DataFrame child : d.getChildren()) {
             if (child instanceof DirectoryCOMP){
-                minValue = this.visit((DirectoryCOMP) child, label);
-                if (minValue != null && minValue < min) {
-                    min = minValue;
-                }
+                visit((DirectoryCOMP) child, label);
             } else if (child instanceof FileCOMP){
-                minValue = this.visit((FileCOMP) child, label);
-                if (minValue != null && minValue < min) {
-                    min = minValue;
-                }
+                visit((FileCOMP) child, label);
             }
         }
-        return min;
     }
 
-    public Double visit(FileCOMP f, String label) {
-        return f.min(label);
+    public void visit(FileCOMP f, String label) {
+        Double minValue = f.min(label);
+        if (minValue != null && minValue < result){
+            result = minValue;
+        }
     }
 
+    @Override
+    public Double getResult() {
+        return result;
+    }
 }

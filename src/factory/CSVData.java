@@ -5,7 +5,6 @@ import visitor.Visitor;
 import java.io.*;
 import java.util.*;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class CSVData implements DataFrame {
 
@@ -108,7 +107,7 @@ public class CSVData implements DataFrame {
 		int col = labelList.indexOf(label);
 
 		if (col != -1) {
-			List<String> filtered_column = content.get(col).stream().filter(func).collect(Collectors.toList());
+			List<String> filtered_column = content.get(col).stream().filter(func).toList();
 
 			LinkedList<ArrayList<String>> aux = new LinkedList<>();
 			for (int k = 0; k < this.columns(); k++){
@@ -215,5 +214,30 @@ public class CSVData implements DataFrame {
 	@Override
 	public Iterator<ArrayList<String>> iterator() {
 		return content.iterator();
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder aux = new StringBuilder();
+		int i, j, n_blanks;
+		for (String label : labelList){
+			aux.append(label);
+			n_blanks = 32 - label.length();
+			for (j = 0; (n_blanks - j) > 4; j += 4){
+				aux.append("\t");
+			}
+		}
+		aux.append("\n");
+		for (i = 0; i < size(); i++){
+			for (ArrayList<String> col : content){
+				aux.append(col.get(i));
+				n_blanks = 32 - col.get(i).length();
+				for (j = 0; (n_blanks - j) > 4; j += 4){
+					aux.append("\t");
+				}
+			}
+			aux.append("\n");
+		}
+		return aux.toString();
 	}
 }

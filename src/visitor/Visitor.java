@@ -8,4 +8,6 @@ public interface Visitor {
 
     void visit(FileCOMP f, String label);
 
+    Double getResult();
+
 }
