@@ -56,13 +56,15 @@ public class DirectoryCOMP implements DataFrame {
     }
 
     public ArrayList<String> sort(String label, Comparator<Object> c) {
-        return null;
+        ArrayList<String> temp = (ArrayList<String>) getColumn(label).clone();
+        temp.sort(c);
+        return temp;
     }
 
     public DataFrame query(String label, Predicate<String> predicate) {
         DataFrame result = null;
         boolean firstHasBeenAdded = false;
-        for (DataFrame child : this.children) {
+        for (DataFrame child : children) {
             if (!firstHasBeenAdded) {
                 if (child.query(label, predicate) != null){
                     result = child.query(label, predicate);
@@ -78,19 +80,52 @@ public class DirectoryCOMP implements DataFrame {
     }
 
     public Double max(String label) {
-        return null;
+        double maxValue = Double.MIN_VALUE;
+        for (DataFrame child : children){
+            if (child.max(label) != null){
+                maxValue = Math.max(child.max(label), maxValue);
+            }
+        }
+        return maxValue;
     }
 
     public Double min(String label) {
-        return null;
+        double minValue = Double.MAX_VALUE;
+        for (DataFrame child : children){
+            if (child.min(label) != null){
+                minValue = Math.min(child.min(label), minValue);
+            }
+        }
+        return minValue;
     }
 
     public Double average(String label) {
+        ArrayList<String> list;
+        double accumulator = 0.0;
+        int nElements = 0;
+        for (DataFrame child : children) {
+            list = child.getColumn(label);
+            if (list != null) {
+                for (String value : list) {
+                    accumulator += Integer.parseInt(value);
+                    nElements++;
+                }
+            }
+        }
+        if (nElements != 0){
+            return accumulator/nElements;
+        }
         return null;
     }
 
     public Double sum(String label) {
-        return null;
+        Double sum = 0.0;
+        for (DataFrame child : children) {
+            if (child.sum(label) != null){
+                sum += child.sum(label);
+            }
+        }
+        return sum;
     }
 
     public LinkedList<ArrayList<String>> getContent() {
@@ -102,7 +137,11 @@ public class DirectoryCOMP implements DataFrame {
     }
 
     public ArrayList<String> getColumn(String label) {
-        return null;
+        ArrayList<String> column = new ArrayList<>();
+        for (DataFrame child : children){
+            column.addAll(child.getColumn(label));
+        }
+        return column;
     }
 
     public void accept(Visitor v, String label) {

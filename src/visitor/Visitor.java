@@ -1,12 +1,10 @@
 package visitor;
 
-import composite.*;
+import factory.DataFrame;
 
 public interface Visitor {
 
-    void visit(DirectoryCOMP d, String label);
-
-    void visit(FileCOMP f, String label);
+    void visit(DataFrame dataFrame, String label);
 
     Double getResult();
 
