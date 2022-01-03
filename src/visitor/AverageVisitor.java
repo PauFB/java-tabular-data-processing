@@ -13,4 +13,5 @@ public class AverageVisitor implements Visitor {
     public Double getResult() {
         return result;
     }
+
 }

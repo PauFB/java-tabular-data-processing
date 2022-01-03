@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 
 public class FileCOMP implements DataFrame {
 
-    DataFrame dataFrame;
+    Data data;
 
     public FileCOMP(String filePath) {
         if (filePath.contains(".csv")) {
@@ -25,55 +25,55 @@ public class FileCOMP implements DataFrame {
     }
 
     public LinkedList<String> getLabelList() {
-        return this.dataFrame.getLabelList();
+        return this.data.getLabelList();
     }
 
     public String at(int id, String label) {
-        return dataFrame.at(id, label);
+        return data.at(id, label);
     }
 
     public String iat(int i, int j) {
-        return dataFrame.iat(i,j);
+        return data.iat(i,j);
     }
 
     public int columns() {
-        return dataFrame.columns();
+        return data.columns();
     }
 
     public int size() {
-        return dataFrame.size();
+        return data.size();
     }
 
     public ArrayList<String> sort(String label, Comparator<Object> c) {
-        return dataFrame.sort(label, c);
+        return data.sort(label, c);
     }
 
-    public DataFrame query(String label, Predicate<String> predicate) {
-        return dataFrame.query(label, predicate);
+    public Data query(String label, Predicate<String> predicate) {
+        return data.query(label, predicate);
     }
 
     public Double max(String label) {
-        return dataFrame.max(label);
+        return data.max(label);
     }
 
     public Double min(String label) {
-        return dataFrame.min(label);
+        return data.min(label);
     }
 
     public Double average(String label) {
-        return dataFrame.average(label);
+        return data.average(label);
     }
 
     public Double sum(String label) {
-        return dataFrame.sum(label);
+        return data.sum(label);
     }
 
     public LinkedList<ArrayList<String>> getContent(){
-        return dataFrame.getContent();
+        return data.getContent();
     }
 
     public ArrayList<String> getColumn(String label) {
-        return dataFrame.getColumn(label);
+        return data.getColumn(label);
     }
 
     public void accept(Visitor v, String label) {
@@ -81,10 +81,10 @@ public class FileCOMP implements DataFrame {
     }
 
     public Iterator<ArrayList<String>> iterator() {
-        return dataFrame.iterator();
+        return data.iterator();
     }
 
     public String toString() {
-        return dataFrame.toString();
+        return data.toString();
     }
 }
