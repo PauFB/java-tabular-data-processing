@@ -30,6 +30,8 @@ public interface DataFrame extends Iterable<ArrayList<String>> {
 
 	LinkedList<ArrayList<String>> getContent();
 
+	LinkedList<String> getLabelList();
+
 	ArrayList<String> getColumn(String label);
 
 	void accept(Visitor v, String label);

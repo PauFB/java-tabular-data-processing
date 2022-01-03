@@ -101,6 +101,11 @@ public class CSVData implements DataFrame {
 		return data.getContent();
 	}
 
+	@Override
+	public LinkedList<String> getLabelList() {
+		return data.getLabelList();
+	}
+
 	public ArrayList<String> getColumn(String label) {
 		return data.getColumn(label);
 	}

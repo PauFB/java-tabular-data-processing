@@ -42,10 +42,21 @@ public class DirectoryCOMP implements DataFrame {
     }
 
     public int columns() {
-        int result = 0;
-        for (DataFrame child : this.children)
-            result += child.columns();
-        return result;
+        return this.getLabelList().size();
+    }
+
+    public LinkedList<String> getLabelList() {
+        LinkedList<String> labelList = new LinkedList<>();
+        LinkedList<String> newlabelList = new LinkedList<>();
+        for (DataFrame child : this.children) {
+            newlabelList = child.getLabelList();
+            for (String s : newlabelList){
+                if (!labelList.contains(s)){
+                    labelList.add(s);
+                }
+            }
+        }
+        return labelList;
     }
 
     public int size() {
@@ -91,8 +102,8 @@ public class DirectoryCOMP implements DataFrame {
 
     public Double min(String label) {
         double minValue = Double.MAX_VALUE;
-        for (DataFrame child : children){
-            if (child.min(label) != null){
+        for (DataFrame child : children) {
+            if (child.min(label) != null) {
                 minValue = Math.min(child.min(label), minValue);
             }
         }

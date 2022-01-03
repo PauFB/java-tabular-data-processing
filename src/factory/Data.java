@@ -19,6 +19,10 @@ public class Data {
         return content.get(labelIndex).get(id);
     }
 
+    public LinkedList<String> getLabelList() {
+        return this.labelList;
+    }
+
     public String iat(int i, int j) {
         return this.content.get(j).get(i);
     }
@@ -53,9 +57,9 @@ public class Data {
                 aux.add(new ArrayList<>());
             }
 
-            for (int j = 0; j < this.size(); j++){
+            for (int j = 0; j < this.size(); j++) {
                 if (filtered_column.contains(content.get(col).get(j))){
-                    for (int i = 0; i < this.columns(); i++){
+                    for (int i = 0; i < this.columns(); i++) {
                         aux.get(i).add(content.get(i).get(j));
                     }
                 }

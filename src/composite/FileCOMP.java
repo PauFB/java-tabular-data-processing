@@ -24,6 +24,9 @@ public class FileCOMP implements DataFrame {
         return dataFrame;
     }
 
+    public LinkedList<String> getLabelList() {
+        return this.dataFrame.getLabelList();
+    }
 
     public String at(int id, String label) {
         return dataFrame.at(id, label);

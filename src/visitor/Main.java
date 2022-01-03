@@ -41,6 +41,7 @@ public class Main {
             d.accept(v,"SortOrder");
             System.out.println(v.getResult());
         }
+
         System.out.println("Minim dir2 LatD");
         for (DataFrame d : list2) {
             v = new MinimumVisitor();
@@ -54,6 +55,7 @@ public class Main {
             d.accept(v,"SortOrder");
             System.out.println(v.getResult());
         }
+
         System.out.println("Suma dir2 LatD");
         for (DataFrame d : list2) {
             v = new SumVisitor();
@@ -67,6 +69,7 @@ public class Main {
             d.accept(v,"SortOrder");
             System.out.println(v.getResult());
         }
+
         System.out.println("Mitjana dir2 LatD");
         for (DataFrame d : list2) {
             v = new AverageVisitor();

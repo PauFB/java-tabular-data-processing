@@ -105,6 +105,11 @@ public class JSONData implements DataFrame {
 		return data.getContent();
 	}
 
+	@Override
+	public LinkedList<String> getLabelList() {
+		return this.data.getLabelList();
+	}
+
 	public ArrayList<String> getColumn(String label) {
 		return data.getColumn(label);
 	}
