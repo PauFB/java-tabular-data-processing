@@ -61,11 +61,8 @@ public class TXTData implements DataFrame {
         return this.data.sort(label,c);
     }
 
-    public DataFrame query(String label, Predicate<String> func) {
-        if (data.query(label,func) != null){
-            return new TXTData(data.query(label,func));
-        }
-        return null;
+    public Data query(String label, Predicate<String> func) {
+        return data.query(label,func);
     }
 
     public Double max(String label) {

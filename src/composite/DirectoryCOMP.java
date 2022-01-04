@@ -9,49 +9,37 @@ import java.util.function.Predicate;
 
 public class DirectoryCOMP implements DataFrame {
 
-    private Data data;
+    private final String name;
+    private final List<DataFrame> children;
 
     public DirectoryCOMP(String directoryPath) {
         name = directoryPath;
         children = new LinkedList<>();
-        File directory = new File(directoryPath);
-        FileCOMP f;
-        DirectoryCOMP d;
-        File[] files = directory.listFiles();
-
         try {
-            if (!files[0].isDirectory()) {
-                f = new FileCOMP(files[0].getAbsolutePath());
-                labelList = (LinkedList<String>) f.getLabelList().clone();
-            } else {
-                d = new DirectoryCOMP(files[0].getAbsolutePath());
-                labelList = (LinkedList<String>) d.getLabelList().clone();
-            }
-
-            for (String label : labelList)
-                content.add(new ArrayList<>());
-
+            File directory = new File(directoryPath);
             for (File file : directory.listFiles()) {
                 if (!file.isDirectory()) {
-                    f = new FileCOMP(file.getAbsolutePath());
-                    for (int i = 0; i < labelList.size(); i++) {
-                        content.get(i).addAll(f.getContent().get(i));
-                    }
-                } else {
-                    d = new DirectoryCOMP(file.getAbsolutePath());
-                    for (int i = 0; i < labelList.size(); i++) {
-                        content.get(i).addAll(d.getContent().get(i));
-                    }
+                    children.add(new FileCOMP(file.getAbsolutePath()));
+                    continue;
                 }
+                children.add(new DirectoryCOMP(file.getAbsolutePath()));
             }
-            this.data = new Data(labelList, content);
-        } catch (Exception e) {
-            this.data = new Data();
+        } catch (Exception e){
+            System.out.println("El directori esta buit");
         }
+
+    }
+
+    public List<DataFrame> getChildren(){
+        return children;
+    }
+
+    public String getName(){
+        return name;
     }
 
     public String at(int id, String label) {
-        return this.data.at(id, label);
+        return null;
     }
 
     public String iat(int i, int j) {
@@ -59,23 +47,52 @@ public class DirectoryCOMP implements DataFrame {
     }
 
     public int columns() {
-        return this.data.columns();
+        return this.getLabelList().size();
     }
 
     public LinkedList<String> getLabelList() {
-        return this.data.getLabelList();
+        LinkedList<String> labelList = new LinkedList<>();
+        LinkedList<String> newlabelList = new LinkedList<>();
+        for (DataFrame child : this.children) {
+            newlabelList = child.getLabelList();
+            for (String s : newlabelList){
+                if (!labelList.contains(s)){
+                    labelList.add(s);
+                }
+            }
+        }
+        return labelList;
     }
 
     public int size() {
-        return this.data.size();
+        int result = 0;
+        for (DataFrame child : this.children)
+            result += child.size();
+        return result;
     }
 
     public ArrayList<String> sort(String label, Comparator<Object> c) {
-        return this.data.sort(label, c);
+        ArrayList<String> temp = (ArrayList<String>) getColumn(label).clone();
+        temp.sort(c);
+        return temp;
     }
 
     public Data query(String label, Predicate<String> predicate) {
-        return this.data.query(label, predicate);
+        Data result = null;
+        boolean firstHasBeenAdded = false;
+        for (DataFrame child : children) {
+            if (!firstHasBeenAdded) {
+                if (child.query(label, predicate) != null){
+                    result = child.query(label, predicate);
+                    firstHasBeenAdded = true;
+                }
+            } else if (child.query(label, predicate) != null) {
+                for (int i = 0; i < result.getContent().size(); i++) {
+                    result.getContent().get(i).addAll(child.query(label, predicate).getContent().get(i));
+                }
+            }
+        }
+        return result;
     }
 
     public Double max(String label) {
@@ -136,7 +153,11 @@ public class DirectoryCOMP implements DataFrame {
     }
 
     public ArrayList<String> getColumn(String label) {
-        return this.data.getColumn(label);
+        ArrayList<String> column = new ArrayList<>();
+        for (DataFrame child : children){
+            column.addAll(child.getColumn(label));
+        }
+        return column;
     }
 
     public void accept(Visitor v, String label) {

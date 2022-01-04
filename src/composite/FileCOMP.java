@@ -11,17 +11,25 @@ public class FileCOMP implements DataFrame {
     Data data;
 
     public FileCOMP(String filePath) {
-        if (filePath.contains(".csv")) {
-            dataFrame = new CSVData(filePath);
-        } else if(filePath.contains(".json")){
-            dataFrame = new JSONData(filePath);
-        } else if(filePath.contains(".txt")){
-            dataFrame = new TXTData(filePath);
+        try {
+            DataFrame dataFrame = null;
+            if (filePath.contains(".csv")) {
+                dataFrame = new CSVData(filePath);
+            } else if(filePath.contains(".json")){
+                dataFrame = new JSONData(filePath);
+            } else if(filePath.contains(".txt")){
+                dataFrame = new TXTData(filePath);
+            }
+            data = new Data(dataFrame.getLabelList(),dataFrame.getContent());
+        } catch (Exception e){
+            data = null;
+            System.out.println("El fitxer no es un Dataframe");
         }
+
     }
 
-    public DataFrame getDataFrame() {
-        return dataFrame;
+    public Data getData() {
+        return data;
     }
 
     public LinkedList<String> getLabelList() {

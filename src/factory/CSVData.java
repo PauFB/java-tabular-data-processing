@@ -94,7 +94,6 @@ public class CSVData implements DataFrame {
 		return this.data.getContent();
 	}
 
-	@Override
 	public LinkedList<String> getLabelList() {
 		return this.data.getLabelList();
 	}
@@ -109,7 +108,6 @@ public class CSVData implements DataFrame {
 		return this.data.iterator();
 	}
 
-	@Override
 	public String toString() {
 		return this.data.toString();
 	}
