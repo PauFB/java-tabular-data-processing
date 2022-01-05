@@ -4,14 +4,19 @@ import factory.DataFrame;
 
 public class AverageVisitor implements Visitor {
 
-    Double result;
+    private String label;
+    private Double result;
 
-    public void visit(DataFrame dataFrame, String label) {
-        result = dataFrame.average(label);
+    public AverageVisitor(String label) {
+        this.label = label;
+    }
+
+    public void visit(DataFrame dataFrame) {
+        this.result = dataFrame.average(this.label);
     }
 
     public Double getResult() {
-        return result;
+        return this.result;
     }
 
 }

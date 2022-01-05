@@ -20,7 +20,7 @@ public class CSVData implements DataFrame {
 			String row = fileReader.readLine();
 			StringTokenizer st = new StringTokenizer(row, ",");
 
-			// Llegir la capçalera
+			// Llegir la capcalera
 			while (st.hasMoreTokens()) {
 				content.add(new ArrayList<>());		//Per cada nova entrada crear una nova columna
 				labelList.add(st.nextToken()); 		// i afegir a LabelList
@@ -102,7 +102,7 @@ public class CSVData implements DataFrame {
 		return this.data.getColumn(label);
 	}
 
-	public void accept(Visitor v, String label) {}
+	public void accept(Visitor v) {}
 
 	public Iterator<ArrayList<String>> iterator() {
 		return this.data.iterator();

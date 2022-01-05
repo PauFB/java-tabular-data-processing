@@ -110,7 +110,7 @@ public class JSONData implements DataFrame {
 		return this.data.getColumn(label);
 	}
 
-	public void accept(Visitor v, String label) {}
+	public void accept(Visitor v) {}
 
 	public Iterator<ArrayList<String>> iterator() {
 		return this.data.iterator();

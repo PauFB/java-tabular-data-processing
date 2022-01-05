@@ -34,6 +34,6 @@ public interface DataFrame extends Iterable<ArrayList<String>> {
 
 	ArrayList<String> getColumn(String label);
 
-	void accept(Visitor v, String label);
+	void accept(Visitor v);
 
 }
