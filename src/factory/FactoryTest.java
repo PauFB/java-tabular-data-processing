@@ -15,11 +15,11 @@ public class FactoryTest {
 	@BeforeAll
 	static void Initialize(){
 		CsvFactory = new CSVDataFactory();
-		csv = CsvFactory.readFile("ages.csv");
+		csv = CsvFactory.readFile("resources/ages.csv");
 		JsonFactory = new JSONDataFactory();
-		json = JsonFactory.readFile("cities.json");
+		json = JsonFactory.readFile("resources/cities.json");
 		TxtFactory = new TXTDataFactory();
-		txt = TxtFactory.readFile("example.txt");
+		txt = TxtFactory.readFile("resources/example.txt");
 	}
 
 	@BeforeEach

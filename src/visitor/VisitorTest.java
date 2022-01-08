@@ -20,10 +20,10 @@ public class VisitorTest {
 
     @BeforeAll
     static void Initialize(){
-        csv = new FileData("ages.csv");
-        txt = new FileData("example.txt");
-        dir1 = new DirectoryData("dir1");
-        dir2 = new DirectoryData("dir2");
+        csv = new FileData("resources/ages.csv");
+        txt = new FileData("resources/example.txt");
+        dir1 = new DirectoryData("resources/dir1");
+        dir2 = new DirectoryData("resources/dir2");
 
         list = Arrays.asList(csv, txt, dir1, dir2);
     }

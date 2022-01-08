@@ -17,7 +17,7 @@ public class ObserverTest {
 
     @BeforeAll
     static void Initialize(){
-        interceptor = new Interceptor(new CSVData("ages.csv"));
+        interceptor = new Interceptor(new CSVData("resources/ages.csv"));
         logObserver = new LogObserver();
         queryObserver = new QueryObserver();
         interceptor.addObserver(logObserver);

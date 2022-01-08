@@ -7,19 +7,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CompositeTest {
 
-    static FileData csv = new FileData("ages.csv");
-    static FileData json = new FileData("cities.json");
-    static FileData txt = new FileData("example.txt");
-    static DirectoryData dir1 = new DirectoryData("dir1");
-    static DirectoryData dir2 = new DirectoryData("dir2");
+    static FileData csv;
+    static FileData json;
+    static FileData txt;
+    static DirectoryData dir1;
+    static DirectoryData dir2;
 
     @BeforeAll
     static void Initialize(){
-        csv = new FileData("ages.csv");
-        json = new FileData("cities.json");
-        txt = new FileData("example.txt");
-        dir1 = new DirectoryData("dir1");
-        dir2 = new DirectoryData("dir2");
+        csv = new FileData("resources/ages.csv");
+        json = new FileData("resources/cities.json");
+        txt = new FileData("resources/example.txt");
+        dir1 = new DirectoryData("resources/dir1");
+        dir2 = new DirectoryData("resources/dir2");
     }
 
     @BeforeEach
