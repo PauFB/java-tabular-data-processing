@@ -1,11 +1,10 @@
 package mapreduce;
 
+import factory.*;
+
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import factory.Data;
-import factory.DataFrame;
 
 public class MapReduce {
 
@@ -28,7 +27,7 @@ public class MapReduce {
             for (T dataframe : list) {
                 if (!firstHasBeenAdded) {
                     if (dataframe != null){
-                        result = (Data) dataframe /*.clone()*/;
+                        result = (Data) dataframe;
                         firstHasBeenAdded = true;
                     }
                 } else if (dataframe != null) {
