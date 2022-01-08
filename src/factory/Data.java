@@ -54,20 +54,22 @@ public class Data {
         if (col != -1) {
             List<String> filtered_column = content.get(col).stream().filter(func).toList();     //Filter the column indexed by label
 
-            LinkedList<ArrayList<String>> aux = new LinkedList<>();
-            for (int k = 0; k < columns(); k++){
-                aux.add(new ArrayList<>());
-            }
+            if (!filtered_column.isEmpty()) {
+                LinkedList<ArrayList<String>> aux = new LinkedList<>();
+                for (int k = 0; k < columns(); k++){
+                    aux.add(new ArrayList<>());
+                }
 
-            for (int j = 0; j < size(); j++) {                          //For every line
-                if (filtered_column.contains(content.get(col).get(j))){     //If the element in the column indexed by label is in filtered_column
-                    for (int i = 0; i < columns(); i++) {
-                        aux.get(i).add(content.get(i).get(j));                  //Add it to aux
+                for (int j = 0; j < size(); j++) {                          //For every line
+                    if (filtered_column.contains(content.get(col).get(j))){     //If the element in the column indexed by label is in filtered_column
+                        for (int i = 0; i < columns(); i++) {
+                            aux.get(i).add(content.get(i).get(j));                  //Add it to aux
+                        }
                     }
                 }
-            }
 
-            return new Data(labelList, aux);
+                return new Data(labelList, aux);
+            }
         }
         return null;
     }

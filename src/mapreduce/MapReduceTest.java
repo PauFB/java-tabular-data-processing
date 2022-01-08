@@ -83,7 +83,14 @@ public class MapReduceTest {
             System.out.println(elem);
         System.out.println("Result of Code > 888:\n" + MapReduce.reduce(query_list));
 
+        List<Data> query_list2 = MapReduce.map(list, new Query("Code", x -> Integer.parseInt(x) < 0));
+        System.out.println("List of querys with Code < 0:");
+        for (Data elem : query_list2)
+            System.out.println(elem);
+        System.out.println("Result of Code < 0:\n" + MapReduce.reduce(query_list2));
+
         assertAll(() -> assertNotNull(query_list),
-                () -> assertNotNull(MapReduce.reduce(query_list)));
+                () -> assertNotNull(MapReduce.reduce(query_list)),
+                () -> assertNull(MapReduce.reduce(query_list2)));
     }
 }

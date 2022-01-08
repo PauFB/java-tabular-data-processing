@@ -82,9 +82,11 @@ public class CompositeTest {
         System.out.println(dir1.getName() + " Code >= 888:\n" + dir1.query("Code", x -> Integer.parseInt(x) >= 888));
         System.out.println(dir2.getName() + " LatD >= 50:\n" + dir2.query("LatD", x -> Integer.parseInt(x) >= 50));
         System.out.println(dir1.getName() + " NoLabel >= 888:\n" + dir1.query("NoLabel", x -> Integer.parseInt(x) >= 888));
+        System.out.println(dir1.getName() + " Code < 0:\n" + dir1.query("Code", x -> Integer.parseInt(x) < 0));
         assertAll(() -> assertNotNull(dir1.query("Code",x -> Integer.parseInt(x) >= 888)),
                 () -> assertNotNull(dir2.query("LatD",x -> Integer.parseInt(x) >= 50)),
-                () -> assertNull(dir1.query("NoLabel",x -> Integer.parseInt(x) >= 888)));
+                () -> assertNull(dir1.query("NoLabel",x -> Integer.parseInt(x) >= 888)),
+                () -> assertNull(dir1.query("Code",x -> Integer.parseInt(x) < 0)));
     }
 
     @Test
@@ -146,8 +148,10 @@ public class CompositeTest {
         System.out.println(csv.getName() + " Code >= 888:\n" + csv.query("Code", x -> Integer.parseInt(x) >= 888));
         System.out.println(json.getName() + " LatD >= 50:\n" + json.query("LatD", x -> Integer.parseInt(x) >= 50));
         System.out.println(txt.getName() + " NoLabel >= 888:\n" + txt.query("NoLabel", x -> Integer.parseInt(x) >= 888));
+        System.out.println(txt.getName() + " Code < 0:\n" + txt.query("Code", x -> Integer.parseInt(x) < 0));
         assertAll(() -> assertNotNull(csv.query("Code",x -> Integer.parseInt(x) >= 888)),
                 () -> assertNotNull(json.query("LatD",x -> Integer.parseInt(x) >= 50)),
-                () -> assertNull(txt.query("NoLabel",x -> Integer.parseInt(x) >= 888)));
+                () -> assertNull(txt.query("NoLabel",x -> Integer.parseInt(x) >= 888)),
+                () -> assertNull(txt.query("Code",x -> Integer.parseInt(x) < 0)));
     }
 }

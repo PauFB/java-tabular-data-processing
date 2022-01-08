@@ -86,9 +86,11 @@ public class FactoryTest {
 		System.out.println("csv Code >= 888:\n" + csv.query("Code", x -> Integer.parseInt(x) >= 888));
 		System.out.println("json LatD >= 50:\n" + json.query("LatD", x -> Integer.parseInt(x) >= 50));
 		System.out.println("txt NoLabel >= 888:\n" + txt.query("NoLabel", x -> Integer.parseInt(x) >= 888));
+		System.out.println("txt Code < 0:\n" + txt.query("Code", x -> Integer.parseInt(x) < 0));
 		assertAll(() -> assertNotNull(csv.query("Code",x -> Integer.parseInt(x) >= 888)),
 				() -> assertNotNull(json.query("LatD",x -> Integer.parseInt(x) >= 50)),
-				() -> assertNull(txt.query("NoLabel",x -> Integer.parseInt(x) >= 888)));
+				() -> assertNull(txt.query("NoLabel",x -> Integer.parseInt(x) >= 888)),
+				() -> assertNull(txt.query("NoLabel",x -> Integer.parseInt(x) < 0)));
 	}
 
 }
