@@ -17,29 +17,29 @@ public class CSVData implements DataFrame {
 
 			BufferedReader fileReader = new BufferedReader(new FileReader(fileName));
 
-			String row = fileReader.readLine();
+			String row = fileReader.readLine();		//Read first row (labels)
 			StringTokenizer st = new StringTokenizer(row, ",");
 
 			//Read header
-			while (st.hasMoreTokens()) {
-				content.add(new ArrayList<>());		//For every new entrance create a new column
-				labelList.add(st.nextToken()); 		//and add the new label to labelList
+			while (st.hasMoreTokens()) {		//For every new label
+				content.add(new ArrayList<>());		//Add a new column to content
+				labelList.add(st.nextToken()); 		//Add the new label to labelList
 			}
 
 			//Read content
 			row = fileReader.readLine();
-			while (row != null) {
+			while (row != null) {					//For the rest of rows (content)
 				int i = 0;
 				st = new StringTokenizer(row,",");
 
-				while (st.hasMoreTokens()) {
-					content.get(i).add(st.nextToken());		//For every new entrance add the element to content
+				while (st.hasMoreTokens()) {			//For every column
+					content.get(i).add(st.nextToken());		//Add the element to content
 					i++;
 				}				
 				row = fileReader.readLine();
 			}
 
-			data = new Data(labelList,content);
+			data = new Data(labelList,content);			//Initialize data
 
 			fileReader.close();
 

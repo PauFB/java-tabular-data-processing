@@ -19,21 +19,21 @@ public class TXTData implements DataFrame {
         settings.detectFormatAutomatically();
 
         CsvParser parser = new CsvParser(settings);
-        List<String[]> rows = parser.parseAll(new File(fileName));
+        List<String[]> rows = parser.parseAll(new File(fileName));      //Convert txt file to a list of a list of Strings
 
-        for (String label : rows.get(0)) {
-            labelList.add(label);
-            content.add(new ArrayList<>());
+        for (String label : rows.get(0)) {      //For the first row (labels)
+            labelList.add(label);                   //Add the new label to labelList
+            content.add(new ArrayList<>());         //Add a new column to content
         }
 
-        for (int i = 1; i < rows.size(); i++) {
+        for (int i = 1; i < rows.size(); i++) { //For the rest of rows (content)
             String[] line = rows.get(i);
-            for (int j = 0; j < line.length; j++) {
-                content.get(j).add(line[j]);
+            for (int j = 0; j < line.length; j++) { //For every column
+                content.get(j).add(line[j]);            //Add the element to content
             }
         }
 
-        data = new Data(labelList,content);
+        data = new Data(labelList,content);         //Initialize data
     }
 
     public String at(int id, String label) {

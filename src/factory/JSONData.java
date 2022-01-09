@@ -28,22 +28,25 @@ public class JSONData implements DataFrame {
 				}
 			};
 
+			//Convert json file to a list of JsonObjects
         	LinkedList<HashMap<String, String>> array = (LinkedList<HashMap<String, String>>) parser.parse(new FileReader(file), orderedKeyFactory);
 
-			HashMap<String, String> jsonObject = array.get(0);
+			//Read header
+			HashMap<String, String> jsonObject = array.get(0);		//Take the first (or any) JsonObject
             for (int i = 0; i < jsonObject.keySet().size(); i++) {
-				labelList.add((String)jsonObject.keySet().toArray()[i]);
-				content.add(new ArrayList<>());
+				labelList.add((String)jsonObject.keySet().toArray()[i]);	//And add its keys(labels) to labelList
+				content.add(new ArrayList<>());								//Add a new column to content
             }
 
-            for (HashMap<String, String> obj : array) {
+			//Read content
+            for (HashMap<String, String> obj : array) {			//For every JsonObject
             	 jsonObject = obj;
-            	 for (int j = 0; j < jsonObject.size(); j++) {
-					 content.get(j).add(String.valueOf(jsonObject.get(labelList.get(j))));
+            	 for (int j = 0; j < jsonObject.size(); j++) {		//For every element of the JsonObject
+					 content.get(j).add(String.valueOf(jsonObject.get(labelList.get(j))));		//Add it to content
 				 }
             }
 
-			data = new Data(labelList,content);
+			data = new Data(labelList,content);		//Initialize data
 
         } catch (IOException e) {
             e.printStackTrace();
