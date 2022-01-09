@@ -16,7 +16,7 @@ public class FileData implements DataFrame {
 
     public FileData(String filePath) {
         name = filePath;
-        DataFrame dataFrame = null;                                             // Create a new Dataframe depending on the file extension
+        DataFrame dataFrame = null;                                             // Create a new Dataframe depending on the file's extension
         if (filePath.contains(".csv")) {
             dataFrame = new CSVData(filePath);
         } else if (filePath.contains(".json")) {
@@ -25,7 +25,7 @@ public class FileData implements DataFrame {
             dataFrame = new TXTData(filePath);
         }
         if (dataFrame != null) {
-            data = new Data(dataFrame.getLabelList(), dataFrame.getContent());   // Instantiate the data with the information of the DataFrame
+            data = new Data(dataFrame.getLabelList(), dataFrame.getContent());   // Instantiate the contained data
         } else {
             data = null;
             System.out.println("File is not a DataFrame");

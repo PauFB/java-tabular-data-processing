@@ -20,7 +20,7 @@ public class CSVData implements DataFrame {
 
             BufferedReader fileReader = new BufferedReader(new FileReader(fileName));
 
-            String row = fileReader.readLine();                 // First row read
+            String row = fileReader.readLine();                 // Read the first row (list of labels)
             StringTokenizer st = new StringTokenizer(row, ",");
 
             // Read the header (list of labels)

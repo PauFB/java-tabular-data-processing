@@ -22,7 +22,7 @@ public class DirectoryData implements DataFrame {
         File directory = new File(directoryPath);
         File[] archives = directory.listFiles();
         if (archives != null) {
-            for (File file : archives) {           //For every archive that contains a DataFrame in directoryPath, add it to children
+            for (File file : archives) {           // For every archive that contains a DataFrame in directoryPath, add it to the list of children
                 if (!file.isDirectory()) {
                     f = new FileData(file.getAbsolutePath());
                     if (f.getData() != null) {
@@ -93,15 +93,16 @@ public class DirectoryData implements DataFrame {
     public Data query(String label, Predicate<String> predicate) {
         Data result = null;
         boolean firstHasBeenAdded = false;
-        for (DataFrame child : children) {                      //For every child
+        for (DataFrame child : children) {                      // For every child
             if (!firstHasBeenAdded) {
                 if (child.query(label, predicate) != null) {
-                    result = child.query(label, predicate);     //result takes the first query
+                    result = child.query(label, predicate);     // result points to the first query result
                     firstHasBeenAdded = true;
                 }
             } else if (child.query(label, predicate) != null) {
                 for (int i = 0; i < result.getContent().size(); i++) {
-                    result.getContent().get(i).addAll(child.query(label, predicate).getContent().get(i));   //Add to the content of result the content of the rest of querys
+                    // Add each column of each query() result to the corresponding column of the accumulated (directory) result
+                    result.getContent().get(i).addAll(child.query(label, predicate).getContent().get(i));
                 }
             }
         }
@@ -138,11 +139,11 @@ public class DirectoryData implements DataFrame {
         ArrayList<String> list;
         double accumulator = 0.0;
         int nElements = 0;
-        for (DataFrame child : children) {          //For every child
+        for (DataFrame child : children) {                      // For every child
             list = child.getColumn(label);
             if (list != null) {
                 for (String value : list) {
-                    accumulator += Integer.parseInt(value);     //Accumulate the elements of the column indexed by label
+                    accumulator += Integer.parseInt(value);     // Accumulate the elements of the column indexed by label
                     nElements++;
                 }
             }
@@ -170,9 +171,9 @@ public class DirectoryData implements DataFrame {
         LinkedList<ArrayList<String>> content = new LinkedList<>();
         for (int i = 0; i < getLabelList().size(); i++)
             content.add(new ArrayList<>());
-        for (DataFrame child : children) {                  //For every child
+        for (DataFrame child : children) {                          // For every child,
             for (int i = 0; i < content.size(); i++) {
-                content.get(i).addAll(child.getContent().get(i));   //Accumulate the content
+                content.get(i).addAll(child.getContent().get(i));   // accumulate the content of each DataFrame contained in this directory
             }
         }
         return content;
@@ -181,11 +182,11 @@ public class DirectoryData implements DataFrame {
     public LinkedList<String> getLabelList() {
         LinkedList<String> labelList = new LinkedList<>();
         LinkedList<String> childLabelList;
-        for (DataFrame child : children) {              //For every child
+        for (DataFrame child : children) {              // For every child,
             childLabelList = child.getLabelList();
             for (String s : childLabelList) {
                 if (!labelList.contains(s)) {
-                    labelList.add(s);                   //Add labels that are not in labelList
+                    labelList.add(s);                   // add each label that is not already contained in labelList
                 }
             }
         }
@@ -194,9 +195,9 @@ public class DirectoryData implements DataFrame {
 
     public ArrayList<String> getColumn(String label) {
         ArrayList<String> column = new ArrayList<>();
-        for (DataFrame child : children) {               //For every child
+        for (DataFrame child : children) {                  // For every child,
             if (child.getColumn(label) != null) {
-                column.addAll(child.getColumn(label));          //Accumulate the elements of the column indexed by label
+                column.addAll(child.getColumn(label));      // accumulate the elements of the column indexed by label
             }
         }
         return column;
