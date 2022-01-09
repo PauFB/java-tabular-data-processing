@@ -1,11 +1,18 @@
-package visitor;
+package test;
 
-import composite.*;
+import composite.DirectoryData;
+import composite.FileData;
 import factory.DataFrame;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import visitor.*;
 
-import java.util.*;
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class VisitorTest {
 
@@ -19,7 +26,7 @@ public class VisitorTest {
     Visitor v;
 
     @BeforeAll
-    static void Initialize(){
+    static void Initialize() {
         csv = new FileData("resources/ages.csv");
         txt = new FileData("resources/example.txt");
         dir1 = new DirectoryData("resources/dir1");
@@ -29,12 +36,12 @@ public class VisitorTest {
     }
 
     @BeforeEach
-    public void Separate(){
+    public void Separate() {
         System.out.println("\n");
     }
 
     @Test
-    public void Maximum(){
+    public void Maximum() {
         v = new MaximumVisitor("SortOrder");
         List<Double> maximums = new LinkedList<>();
         for (DataFrame d : list) {
@@ -49,12 +56,12 @@ public class VisitorTest {
         expectedMaximums.add(148.0);
         expectedMaximums.add(null);
 
-        assertEquals(expectedMaximums,maximums);
+        assertEquals(expectedMaximums, maximums);
     }
 
 
     @Test
-    public void Minimum(){
+    public void Minimum() {
         v = new MinimumVisitor("SortOrder");
         List<Double> minimums = new LinkedList<>();
         for (DataFrame d : list) {
@@ -69,11 +76,11 @@ public class VisitorTest {
         expectedMinimums.add(1.0);
         expectedMinimums.add(null);
 
-        assertEquals(expectedMinimums,minimums);
+        assertEquals(expectedMinimums, minimums);
     }
 
     @Test
-    public void Sum(){
+    public void Sum() {
         v = new SumVisitor("SortOrder");
         List<Double> sums = new LinkedList<>();
         for (DataFrame d : list) {
@@ -88,11 +95,11 @@ public class VisitorTest {
         expectedSums.add(11032.0);
         expectedSums.add(null);
 
-        assertEquals(expectedSums,sums);
+        assertEquals(expectedSums, sums);
     }
 
     @Test
-    public void Average(){
+    public void Average() {
         v = new AverageVisitor("SortOrder");
         List<Double> averages = new LinkedList<>();
         for (DataFrame d : list) {
@@ -107,6 +114,7 @@ public class VisitorTest {
         expectedAverages.add(73.05960264900662);
         expectedAverages.add(null);
 
-        assertEquals(expectedAverages,averages);
+        assertEquals(expectedAverages, averages);
     }
+
 }

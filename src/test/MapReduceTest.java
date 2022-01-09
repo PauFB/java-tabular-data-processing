@@ -1,10 +1,20 @@
-package mapreduce;
+package test;
 
-import composite.*;
-import java.util.*;
+import composite.DirectoryData;
+import composite.FileData;
+import factory.Data;
+import factory.DataFrame;
+import mapreduce.Columns;
+import mapreduce.MapReduce;
+import mapreduce.Query;
+import mapreduce.Size;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import factory.*;
-import org.junit.jupiter.api.*;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,7 +30,7 @@ public class MapReduceTest {
     static List<DataFrame> list;
 
     @BeforeAll
-    static void Initialize(){
+    static void Initialize() {
         csv = new FileData("resources/ages.csv");
         json = new FileData("resources/cities.json");
         txt = new FileData("resources/example.txt");
@@ -32,12 +42,12 @@ public class MapReduceTest {
     }
 
     @BeforeEach
-    public void Separate(){
+    public void Separate() {
         System.out.println("\n");
     }
 
     @Test
-    public void MapReduceSize(){
+    public void MapReduceSize() {
         List<Integer> sizes = MapReduce.map(list, new Size());
         System.out.println("List of sizes:");
         for (Integer elem : sizes)
@@ -51,13 +61,12 @@ public class MapReduceTest {
         expectedSizes.add(151);
         expectedSizes.add(256);
         Double expectedSizeAverage = 137.2;
-        assertAll(() -> assertEquals(expectedSizes,sizes),
-                () -> assertEquals(expectedSizeAverage,MapReduce.reduce(sizes)));
+        assertAll(() -> assertEquals(expectedSizes, sizes),
+                () -> assertEquals(expectedSizeAverage, MapReduce.reduce(sizes)));
     }
 
-
     @Test
-    public void MapReduceColumns(){
+    public void MapReduceColumns() {
         List<Integer> columns = MapReduce.map(list, new Columns());
         System.out.println("List of columns:");
         for (Integer elem : columns)
@@ -71,20 +80,20 @@ public class MapReduceTest {
         expectedColumns.add(3);
         expectedColumns.add(10);
         Double expectedSizeAverage = 5.8;
-        assertAll(() -> assertEquals(expectedColumns,columns),
-                () -> assertEquals(expectedSizeAverage,MapReduce.reduce(columns)));
+        assertAll(() -> assertEquals(expectedColumns, columns),
+                () -> assertEquals(expectedSizeAverage, MapReduce.reduce(columns)));
     }
 
     @Test
-    public void MapReduceQuerys(){
+    public void MapReduceQueries() {
         List<Data> query_list = MapReduce.map(list, new Query("Code", x -> Integer.parseInt(x) > 888));
-        System.out.println("List of querys with Code > 888:");
+        System.out.println("List of query results of Code > 888:");
         for (Data elem : query_list)
             System.out.println(elem);
         System.out.println("Result of Code > 888:\n" + MapReduce.reduce(query_list));
 
         List<Data> query_list2 = MapReduce.map(list, new Query("Code", x -> Integer.parseInt(x) < 0));
-        System.out.println("List of querys with Code < 0:");
+        System.out.println("List of query results of Code < 0:");
         for (Data elem : query_list2)
             System.out.println(elem);
         System.out.println("Result of Code < 0:\n" + MapReduce.reduce(query_list2));
@@ -93,4 +102,5 @@ public class MapReduceTest {
                 () -> assertNotNull(MapReduce.reduce(query_list)),
                 () -> assertNull(MapReduce.reduce(query_list2)));
     }
+
 }
