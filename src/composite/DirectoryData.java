@@ -91,7 +91,7 @@ public class DirectoryData implements DataFrame {
     }
 
     public Data query(String label, Predicate<String> predicate) {
-        Data result = null;
+        Data result = new Data(getLabelList(), new LinkedList<>());
         boolean firstHasBeenAdded = false;
         for (DataFrame child : children) {                      // For every child
             if (!firstHasBeenAdded) {

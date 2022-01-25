@@ -93,8 +93,8 @@ public class FactoryTest {
         System.out.println("txt Code < 0:\n" + txt.query("Code", x -> Integer.parseInt(x) < 0));
         assertAll(() -> assertNotNull(csv.query("Code", x -> Integer.parseInt(x) >= 888)),
                 () -> assertNotNull(json.query("LatD", x -> Integer.parseInt(x) >= 50)),
-                () -> assertNull(txt.query("NoLabel", x -> Integer.parseInt(x) >= 888)),
-                () -> assertNull(txt.query("NoLabel", x -> Integer.parseInt(x) < 0)));
+                () -> assertEquals(0, txt.query("NoLabel", x -> Integer.parseInt(x) >= 888).getContent().size()),
+                () -> assertEquals(0, txt.query("Code", x -> Integer.parseInt(x) < 0).getContent().size()));
     }
 
 }

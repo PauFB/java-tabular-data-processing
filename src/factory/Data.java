@@ -34,7 +34,10 @@ public class Data {
     }
 
     public int size() {
-        return content.get(0).size();
+        if (!content.isEmpty()){
+            return content.get(0).size();
+        }
+        return 0;
     }
 
     public ArrayList<String> sort(String label, Comparator<String> c) {
@@ -71,7 +74,7 @@ public class Data {
                 return new Data(labelList, aux);
             }
         }
-        return null;
+        return new Data(labelList, new LinkedList<>());
     }
 
     public LinkedList<ArrayList<String>> getContent() {
