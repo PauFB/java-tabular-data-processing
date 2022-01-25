@@ -37,7 +37,6 @@ public class ObserverTest {
         df.size();
         df.iat(0, 0);
         df.query("Code", x -> Integer.parseInt(x) > 888);
-        df.max("Code");
         df.query("SortCode", x -> Integer.parseInt(x) < 0);
     }
 

@@ -11,8 +11,22 @@ public class SumVisitor implements Visitor {
         this.label = label;
     }
 
-    public void visit(DataFrame dataFrame) {
-        result = dataFrame.sum(label);
+    public void visit(DataFrame df) {
+        double sum = 0;
+        int labelIndex = df.getLabelList().indexOf(label);
+
+        if (labelIndex != -1) {
+            try {
+                for (String elem : df.getContent().get(labelIndex)) {
+                    sum += Integer.parseInt(elem);
+                }
+                result = sum;
+            } catch (NumberFormatException e) {
+                result = null;
+            }
+        } else {
+            result = null;
+        }
     }
 
     public Double getResult() {

@@ -11,8 +11,22 @@ public class MaximumVisitor implements Visitor {
         this.label = label;
     }
 
-    public void visit(DataFrame dataFrame) {
-        result = dataFrame.max(label);
+    public void visit(DataFrame df){
+        double max = Integer.MIN_VALUE;
+        int labelIndex = df.getLabelList().indexOf(label);
+
+        if (labelIndex != -1) {
+            try {
+                for (String elem : df.getContent().get(labelIndex)) {
+                    max = Math.max(Integer.parseInt(elem), max);
+                }
+                result = max;
+            } catch (NumberFormatException e) {
+                result = null;
+            }
+        } else {
+            result = null;
+        }
     }
 
     public Double getResult() {

@@ -4,8 +4,6 @@ import factory.DataFrame;
 
 public interface Visitor {
 
-    void visit(DataFrame dataFrame);
-
-    Double getResult();
+    void visit(DataFrame df);
 
 }
