@@ -45,6 +45,7 @@ public class VisitorTest {
         v = new MaximumVisitor("SortOrder");
         List<Double> maximums = new LinkedList<>();
         for (DataFrame d : list) {
+            ((MaximumVisitor)v).setResult(Double.MIN_VALUE);
             d.accept(v);
             maximums.add(((MaximumVisitor)v).getResult());
         }
@@ -65,6 +66,7 @@ public class VisitorTest {
         v = new MinimumVisitor("SortOrder");
         List<Double> minimums = new LinkedList<>();
         for (DataFrame d : list) {
+            ((MinimumVisitor)v).setResult(Double.MAX_VALUE);
             d.accept(v);
             minimums.add(((MinimumVisitor)v).getResult());
         }
@@ -84,6 +86,7 @@ public class VisitorTest {
         v = new SumVisitor("SortOrder");
         List<Double> sums = new LinkedList<>();
         for (DataFrame d : list) {
+            ((SumVisitor)v).setResult(0.0);
             d.accept(v);
             sums.add(((SumVisitor)v).getResult());
         }

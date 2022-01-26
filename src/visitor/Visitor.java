@@ -1,9 +1,12 @@
 package visitor;
 
-import factory.DataFrame;
+import composite.DirectoryData;
+import composite.FileData;
 
 public interface Visitor {
 
-    void visit(DataFrame df);
+    void visit(FileData f);
+
+    void visit(DirectoryData d);
 
 }
